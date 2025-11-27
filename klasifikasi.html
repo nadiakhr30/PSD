@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Klasifikasi &#8212; Proyek Sains Data</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'klasifikasi';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Oversampling" href="ecoli.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nadia.jpg" class="logo__image only-light" alt="Proyek Sains Data - Home"/>
+    <script>document.write(`<img src="_static/nadia.jpg" class="logo__image only-dark" alt="Proyek Sains Data - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Halo…
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="businessunderstanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataunderstanding.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prepocesing.html">Prepocesing - Hasil penghapusan Outlier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecoli.html">Oversampling</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Klasifikasi</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/nadiatulkhoir30/PSD/blob/psd/tugas/klasifikasi.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nadiatulkhoir30/PSD" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nadiatulkhoir30/PSD/issues/new?title=Issue%20on%20page%20%2Fklasifikasi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/klasifikasi.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Klasifikasi</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepocesing">Prepocesing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-target">Distribusi Kelas Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balancing-dengan-smote">Balancing Dengan SMOTE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-data-asli">Klasifikasi Data Asli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-naive-bayes-random-forest-dan-bagging-classifier">Klasifikasi Dengan Naive Bayes, Random Forest Dan Bagging Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penampilan-data-asli">Penampilan Data Asli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penampilan-data-setelah-smote">Penampilan Data Setelah SMOTE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-performansi-model">Perbandingan Performansi Model</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="klasifikasi">
+<h1>Klasifikasi<a class="headerlink" href="#klasifikasi" title="Link to this heading">#</a></h1>
+<section id="import-library">
+<h2>Import Library<a class="headerlink" href="#import-library" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==============================</span>
+<span class="c1"># IMPORT LIBRARIES</span>
+<span class="c1"># ==============================</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+
+<span class="c1"># Supress warnings supaya output lebih bersih</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Semua library berhasil diimpor!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Semua library berhasil diimpor!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="load-dataset">
+<h2>Load Dataset<a class="headerlink" href="#load-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">mysql.connector</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MEMUAT DATASET E.COLI ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># Fungsi untuk load data dari MySQL</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_mysql</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">conn_params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="s1">&#39;root&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="s1">&#39;localhost&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;database&#39;</span><span class="p">:</span> <span class="s1">&#39;ecoli&#39;</span><span class="p">,</span> <span class="s1">&#39;port&#39;</span><span class="p">:</span> <span class="mi">3306</span>
+        <span class="p">}</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">mysql</span><span class="o">.</span><span class="n">connector</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="o">**</span><span class="n">conn_params</span><span class="p">)</span>
+        <span class="n">df_local</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM ecoli&quot;</span><span class="p">,</span> <span class="n">conn</span><span class="p">)</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil dimuat dari MySQL&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df_local</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Gagal memuat dari MySQL:&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Coba load dari MySQL</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">load_mysql</span><span class="p">()</span>
+
+<span class="c1"># Jika MySQL gagal, ambil dari UCI repository</span>
+<span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://archive.ics.uci.edu/ml/machine-learning-databases/ecoli/ecoli.data&quot;</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;protein_name&#39;</span><span class="p">,</span> <span class="s1">&#39;mcg&#39;</span><span class="p">,</span> <span class="s1">&#39;gvh&#39;</span><span class="p">,</span> <span class="s1">&#39;lip&#39;</span><span class="p">,</span> <span class="s1">&#39;chg&#39;</span><span class="p">,</span> <span class="s1">&#39;aac&#39;</span><span class="p">,</span> <span class="s1">&#39;alm1&#39;</span><span class="p">,</span> <span class="s1">&#39;alm2&#39;</span><span class="p">,</span> <span class="s1">&#39;location_class&#39;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data berhasil dimuat dari UCI repository&quot;</span><span class="p">)</span>
+
+<span class="c1"># Info awal dataset</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Shape dataset: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Kelas target: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;location_class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">5 baris pertama:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== MEMUAT DATASET E.COLI ===
+Gagal memuat dari MySQL: 2003 (HY000): Can&#39;t connect to MySQL server on &#39;localhost:3306&#39; (111)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Data berhasil dimuat dari UCI repository
+
+Shape dataset: (336, 9)
+Kelas target: [&#39;cp&#39; &#39;im&#39; &#39;imS&#39; &#39;imL&#39; &#39;imU&#39; &#39;om&#39; &#39;omL&#39; &#39;pp&#39;]
+
+5 baris pertama:
+   protein_name   mcg   gvh   lip  chg   aac  alm1  alm2 location_class
+0    AAT_ECOLI  0.49  0.29  0.48  0.5  0.56  0.24  0.35             cp
+1   ACEA_ECOLI  0.07  0.40  0.48  0.5  0.54  0.35  0.44             cp
+2   ACEK_ECOLI  0.56  0.40  0.48  0.5  0.49  0.37  0.46             cp
+3   ACKA_ECOLI  0.59  0.49  0.48  0.5  0.52  0.45  0.36             cp
+4    ADI_ECOLI  0.23  0.32  0.48  0.5  0.55  0.25  0.35             cp
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="prepocesing">
+<h2>Prepocesing<a class="headerlink" href="#prepocesing" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==================================================</span>
+<span class="c1"># PREPROCESSING</span>
+<span class="c1"># ==================================================</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">LabelEncoder</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== MEMULAI PREPROCESSING DATA ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Pisahkan fitur dan target</span>
+<span class="n">X_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;protein_name&#39;</span><span class="p">,</span> <span class="s1">&#39;location_class&#39;</span><span class="p">])</span>  <span class="c1"># semua kolom kecuali target</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;location_class&#39;</span><span class="p">]</span>
+
+<span class="c1"># Encode target ke bentuk numerik</span>
+<span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">y_enc</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Label unik: </span><span class="si">{</span><span class="n">le</span><span class="o">.</span><span class="n">classes_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Label encoded: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_enc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Pastikan semua fitur berupa string jika ada list/array, lalu one-hot encode</span>
+<span class="n">X_df</span> <span class="o">=</span> <span class="n">X_df</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">X_encoded</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">X_df</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shape fitur setelah one-hot encoding: </span><span class="si">{</span><span class="n">X_encoded</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Scaling fitur numerik</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_encoded</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Preprocessing selesai. Contoh 5 baris pertama fitur setelah scaling:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== MEMULAI PREPROCESSING DATA ===
+
+Label unik: [&#39;cp&#39; &#39;im&#39; &#39;imL&#39; &#39;imS&#39; &#39;imU&#39; &#39;om&#39; &#39;omL&#39; &#39;pp&#39;]
+Label encoded: [0 1 2 3 4 5 6 7]
+
+Shape fitur setelah one-hot encoding: (336, 7)
+
+Preprocessing selesai. Contoh 5 baris pertama fitur setelah scaling:
+[[-0.0517614  -1.41953086 -0.17514236 -0.05463584  0.49078096 -1.20771743
+  -0.7160837 ]
+ [-2.21287637 -0.67596708 -0.17514236 -0.05463584  0.32710612 -0.69711074
+  -0.28566488]
+ [ 0.30842443 -0.67596708 -0.17514236 -0.05463584 -0.08208098 -0.60427317
+  -0.19001625]
+ [ 0.46278978 -0.06759671 -0.17514236 -0.05463584  0.16343128 -0.23292285
+  -0.66825939]
+ [-1.38959448 -1.21674074 -0.17514236 -0.05463584  0.40894354 -1.16129864
+  -0.7160837 ]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribusi-kelas-target">
+<h2>Distribusi Kelas Target<a class="headerlink" href="#distribusi-kelas-target" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ==================================================</span>
+<span class="c1"># DISTRIBUSI KELAS TARGET</span>
+<span class="c1"># ==================================================</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DISTRIBUSI KELAS TARGET ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># Jika y masih berupa Series string</span>
+<span class="n">y_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Distribusi kelas (original):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
+
+<span class="c1"># Visualisasi dengan barplot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">y_series</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;pastel&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Kelas Target&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Kelas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DISTRIBUSI KELAS TARGET ===
+
+Distribusi kelas (original):
+location_class
+cp     143
+im      77
+imL      2
+imS      2
+imU     35
+om      20
+omL      5
+pp      52
+Name: count, dtype: int64
+</pre></div>
+</div>
+<img alt="_images/36e4cb34634f55bd9e93a10a06572f15aabc7ccd3d926d78fec706aa6f8cf76a.png" src="_images/36e4cb34634f55bd9e93a10a06572f15aabc7ccd3d926d78fec706aa6f8cf76a.png" />
+</div>
+</div>
+</section>
+<section id="balancing-dengan-smote">
+<h2>Balancing Dengan SMOTE<a class="headerlink" href="#balancing-dengan-smote" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DATA BALANCING DENGAN SMOTE ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># Data asli</span>
+<span class="n">original_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Data asli:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">original_dist</span><span class="p">)</span>
+
+<span class="c1"># SMOTE (k=1 aman untuk kelas minoritas sangat sedikit)</span>
+<span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">k_neighbors</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span> <span class="o">=</span> <span class="n">smote</span><span class="o">.</span><span class="n">fit_resample</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Setelah SMOTE → konversi y_smote ke Series agar bisa value_counts</span>
+<span class="n">y_smote_series</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_smote</span><span class="p">)</span>
+<span class="n">smote_dist</span> <span class="o">=</span> <span class="n">y_smote_series</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Data setelah SMOTE:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">smote_dist</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ringkasan:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;• Data asli: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> sampel&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;• Data setelah SMOTE: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_smote</span><span class="p">)</span><span class="si">}</span><span class="s2"> sampel&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;• Data yang di-generate: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">y_smote</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2"> sampel&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Selesai!&quot;</span><span class="p">)</span>
+
+<span class="c1"># ========================================</span>
+<span class="c1"># VISUALISASI DISTRIBUSI KELAS (TERPISAH)</span>
+<span class="c1"># ========================================</span>
+
+<span class="c1"># 1. Distribusi Sebelum SMOTE</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">original_dist</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">original_dist</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Kelas Sebelum SMOTE&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Kelas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Sampel&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># 2. Distribusi Sesudah SMOTE</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">smote_dist</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">smote_dist</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Kelas Sesudah SMOTE&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Kelas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Sampel&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DATA BALANCING DENGAN SMOTE ===
+Data asli:
+location_class
+cp     143
+im      77
+imL      2
+imS      2
+imU     35
+om      20
+omL      5
+pp      52
+Name: count, dtype: int64
+
+Data setelah SMOTE:
+location_class
+cp     143
+im     143
+imL    143
+imS    143
+imU    143
+om     143
+omL    143
+pp     143
+Name: count, dtype: int64
+
+Ringkasan:
+• Data asli: 336 sampel
+• Data setelah SMOTE: 1144 sampel
+• Data yang di-generate: 808 sampel
+Selesai!
+</pre></div>
+</div>
+<img alt="_images/f23345618776cbadff4579184bdb9204d3bbdd937d320c5cee04b60c5f208c44.png" src="_images/f23345618776cbadff4579184bdb9204d3bbdd937d320c5cee04b60c5f208c44.png" />
+<img alt="_images/a76cbea10a081ca763bb1be2d24c09803e24c33688f7072100ec388cef1d625c.png" src="_images/a76cbea10a081ca763bb1be2d24c09803e24c33688f7072100ec388cef1d625c.png" />
+</div>
+</div>
+</section>
+<section id="klasifikasi-data-asli">
+<h2>Klasifikasi Data Asli<a class="headerlink" href="#klasifikasi-data-asli" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Klasifikasi DATA ASLI (SEBELUM BALANCING)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== KLASIFIKASI : DATA ASLI ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># Split data untuk training dan testing</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Training set: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test set: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> samples&quot;</span><span class="p">)</span>
+
+<span class="c1"># Training Naive Bayes</span>
+<span class="n">nb_original</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+<span class="n">nb_original</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred_original</span> <span class="o">=</span> <span class="n">nb_original</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Evaluasi</span>
+<span class="n">acc_original</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_original</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Accuracy (Data Asli): </span><span class="si">{</span><span class="n">acc_original</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Classification Report (Data Asli):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_original</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== KLASIFIKASI : DATA ASLI ===
+Training set: 235 samples
+Test set: 101 samples
+
+Accuracy (Data Asli): 0.7822
+
+Classification Report (Data Asli):
+              precision    recall  f1-score   support
+
+          cp       0.91      1.00      0.96        43
+          im       0.78      0.61      0.68        23
+         imL       0.00      0.00      0.00         1
+         imS       0.00      0.00      0.00         1
+         imU       0.62      0.50      0.56        10
+          om       0.00      0.00      0.00         6
+         omL       0.50      1.00      0.67         1
+          pp       0.62      1.00      0.76        16
+
+    accuracy                           0.78       101
+   macro avg       0.43      0.51      0.45       101
+weighted avg       0.73      0.78      0.74       101
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="klasifikasi-dengan-naive-bayes-random-forest-dan-bagging-classifier">
+<h2>Klasifikasi Dengan Naive Bayes, Random Forest Dan Bagging Classifier<a class="headerlink" href="#klasifikasi-dengan-naive-bayes-random-forest-dan-bagging-classifier" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">train_evaluate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Dataset&quot;</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">BaggingClassifier</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== KLASIFIKASI: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Naive Bayes</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+    <span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred_nb</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Naive Bayes ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_nb</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_nb</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_nb</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Blues&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confusion Matrix - Naive Bayes (</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Random Forest</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Random Forest ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confusion Matrix - Random Forest (</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Bagging Classifier (Random Forest base)</span>
+    <span class="n">bagging</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+    <span class="n">bagging</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred_bagging</span> <span class="o">=</span> <span class="n">bagging</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">--- Bagging Classifier ---&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Accuracy:&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">),</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred_bagging</span><span class="p">),</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Reds&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Confusion Matrix - Bagging (</span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="penampilan-data-asli">
+<h2>Penampilan Data Asli<a class="headerlink" href="#penampilan-data-asli" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data asli</span>
+<span class="n">train_evaluate</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y_enc</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Data Asli&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== KLASIFIKASI: Data Asli ===
+
+--- Naive Bayes ---
+Accuracy: 0.7827
+              precision    recall  f1-score   support
+
+           0       0.90      0.97      0.94       143
+           1       0.93      0.56      0.70        77
+           2       1.00      1.00      1.00         2
+           3       0.25      1.00      0.40         2
+           4       0.69      0.57      0.62        35
+           5       1.00      0.20      0.33        20
+           6       1.00      1.00      1.00         5
+           7       0.55      0.92      0.69        52
+
+    accuracy                           0.78       336
+   macro avg       0.79      0.78      0.71       336
+weighted avg       0.84      0.78      0.77       336
+</pre></div>
+</div>
+<img alt="_images/20af8b5ce6de57c6706be0246a0cc9eb82a8b3bc92a79d20d02e8d920ddb73f4.png" src="_images/20af8b5ce6de57c6706be0246a0cc9eb82a8b3bc92a79d20d02e8d920ddb73f4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Random Forest ---
+Accuracy: 1.0
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00       143
+           1       1.00      1.00      1.00        77
+           2       1.00      1.00      1.00         2
+           3       1.00      1.00      1.00         2
+           4       1.00      1.00      1.00        35
+           5       1.00      1.00      1.00        20
+           6       1.00      1.00      1.00         5
+           7       1.00      1.00      1.00        52
+
+    accuracy                           1.00       336
+   macro avg       1.00      1.00      1.00       336
+weighted avg       1.00      1.00      1.00       336
+</pre></div>
+</div>
+<img alt="_images/c9c6cf8efac4e21799e959ca8116b2b69deca28454ccee4cc01c43a280d19ec2.png" src="_images/c9c6cf8efac4e21799e959ca8116b2b69deca28454ccee4cc01c43a280d19ec2.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Bagging Classifier ---
+Accuracy: 0.9762
+              precision    recall  f1-score   support
+
+           0       0.98      0.99      0.99       143
+           1       0.97      0.99      0.98        77
+           2       1.00      1.00      1.00         2
+           3       1.00      0.50      0.67         2
+           4       1.00      0.94      0.97        35
+           5       1.00      0.95      0.97        20
+           6       1.00      1.00      1.00         5
+           7       0.94      0.96      0.95        52
+
+    accuracy                           0.98       336
+   macro avg       0.99      0.92      0.94       336
+weighted avg       0.98      0.98      0.98       336
+</pre></div>
+</div>
+<img alt="_images/52a0eeadd6562faaf5543cecf7d034e05231bf67733f93269f8ec51588b3ee31.png" src="_images/52a0eeadd6562faaf5543cecf7d034e05231bf67733f93269f8ec51588b3ee31.png" />
+</div>
+</div>
+</section>
+<section id="penampilan-data-setelah-smote">
+<h2>Penampilan Data Setelah SMOTE<a class="headerlink" href="#penampilan-data-setelah-smote" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Data SMOTE</span>
+<span class="n">train_evaluate</span><span class="p">(</span><span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Data SMOTE&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== KLASIFIKASI: Data SMOTE ===
+
+--- Naive Bayes ---
+Accuracy: 0.8392
+              precision    recall  f1-score   support
+
+          cp       0.86      0.97      0.91       143
+          im       0.96      0.57      0.72       143
+         imL       1.00      1.00      1.00       143
+         imS       0.95      1.00      0.97       143
+         imU       0.82      0.84      0.83       143
+          om       1.00      0.38      0.55       143
+         omL       1.00      1.00      1.00       143
+          pp       0.53      0.95      0.68       143
+
+    accuracy                           0.84      1144
+   macro avg       0.89      0.84      0.83      1144
+weighted avg       0.89      0.84      0.83      1144
+</pre></div>
+</div>
+<img alt="_images/9f9a477565f2be8b595dd43c72ed30f84d779d5f1ef482dec2e3e3de15660ce9.png" src="_images/9f9a477565f2be8b595dd43c72ed30f84d779d5f1ef482dec2e3e3de15660ce9.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Random Forest ---
+Accuracy: 1.0
+              precision    recall  f1-score   support
+
+          cp       1.00      1.00      1.00       143
+          im       1.00      1.00      1.00       143
+         imL       1.00      1.00      1.00       143
+         imS       1.00      1.00      1.00       143
+         imU       1.00      1.00      1.00       143
+          om       1.00      1.00      1.00       143
+         omL       1.00      1.00      1.00       143
+          pp       1.00      1.00      1.00       143
+
+    accuracy                           1.00      1144
+   macro avg       1.00      1.00      1.00      1144
+weighted avg       1.00      1.00      1.00      1144
+</pre></div>
+</div>
+<img alt="_images/782add73eafddf09d3eb6ea6a8b77a3857c2822758351453646cf9b32d43ba3c.png" src="_images/782add73eafddf09d3eb6ea6a8b77a3857c2822758351453646cf9b32d43ba3c.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--- Bagging Classifier ---
+Accuracy: 0.9921
+              precision    recall  f1-score   support
+
+          cp       0.99      0.99      0.99       143
+          im       0.99      0.96      0.98       143
+         imL       1.00      1.00      1.00       143
+         imS       1.00      1.00      1.00       143
+         imU       0.97      0.99      0.98       143
+          om       1.00      0.99      1.00       143
+         omL       1.00      1.00      1.00       143
+          pp       0.99      1.00      0.99       143
+
+    accuracy                           0.99      1144
+   macro avg       0.99      0.99      0.99      1144
+weighted avg       0.99      0.99      0.99      1144
+</pre></div>
+</div>
+<img alt="_images/c04acfacd781364aad1902de6a8f8b2de967bed676a143d68c7eede0069b7584.png" src="_images/c04acfacd781364aad1902de6a8f8b2de967bed676a143d68c7eede0069b7584.png" />
+</div>
+</div>
+</section>
+<section id="perbandingan-performansi-model">
+<h2>Perbandingan Performansi Model<a class="headerlink" href="#perbandingan-performansi-model" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.naive_bayes</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianNB</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">BaggingClassifier</span>
+
+<span class="c1"># ===============================</span>
+<span class="c1"># Distribusi Kelas Sebelum &amp; Sesudah SMOTE</span>
+<span class="c1"># ===============================</span>
+<span class="n">original_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">smote_dist</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_smote</span><span class="p">)</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+
+<span class="n">dist_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Original&#39;</span><span class="p">:</span> <span class="n">original_dist</span><span class="p">,</span>
+    <span class="s1">&#39;SMOTE&#39;</span><span class="p">:</span> <span class="n">smote_dist</span>
+<span class="p">})</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">dist_df</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Distribusi Kelas Sebelum &amp; Sesudah SMOTE&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Kelas&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Jumlah Sampel&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Dataset&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># ===============================</span>
+<span class="c1">#  Perbandingan Performansi Model</span>
+<span class="c1"># ===============================</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_metrics</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Naive Bayes</span>
+    <span class="n">nb</span> <span class="o">=</span> <span class="n">GaussianNB</span><span class="p">()</span>
+    <span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Naive Bayes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+                              <span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)}</span>
+
+    <span class="c1"># Random Forest</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+                                <span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)}</span>
+
+    <span class="c1"># Bagging</span>
+    <span class="n">bagging</span> <span class="o">=</span> <span class="n">BaggingClassifier</span><span class="p">(</span>
+        <span class="n">estimator</span><span class="o">=</span><span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+        <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+    <span class="p">)</span>
+    <span class="n">bagging</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">bagging</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Bagging&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;accuracy&#39;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+                          <span class="s1">&#39;f1&#39;</span><span class="p">:</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s1">&#39;weighted&#39;</span><span class="p">)}</span>
+
+    <span class="k">return</span> <span class="n">metrics</span>
+
+<span class="c1"># Hitung metrics</span>
+<span class="n">results_asli</span> <span class="o">=</span> <span class="n">get_metrics</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y_enc</span><span class="p">)</span>
+<span class="n">results_smote</span> <span class="o">=</span> <span class="n">get_metrics</span><span class="p">(</span><span class="n">X_smote</span><span class="p">,</span> <span class="n">y_smote</span><span class="p">)</span>
+
+<span class="c1"># Buat DataFrame untuk plotting</span>
+<span class="n">df_acc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Data Asli&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">model</span><span class="p">:</span> <span class="n">results_asli</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">results_asli</span><span class="p">},</span>
+    <span class="s1">&#39;Data SMOTE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">model</span><span class="p">:</span> <span class="n">results_smote</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="s1">&#39;accuracy&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">results_smote</span><span class="p">}</span>
+<span class="p">})</span>
+
+<span class="n">df_f1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Data Asli&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">model</span><span class="p">:</span> <span class="n">results_asli</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="s1">&#39;f1&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">results_asli</span><span class="p">},</span>
+    <span class="s1">&#39;Data SMOTE&#39;</span><span class="p">:</span> <span class="p">{</span><span class="n">model</span><span class="p">:</span> <span class="n">results_smote</span><span class="p">[</span><span class="n">model</span><span class="p">][</span><span class="s1">&#39;f1&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">results_smote</span><span class="p">}</span>
+<span class="p">})</span>
+
+<span class="c1"># Plot Accuracy</span>
+<span class="n">df_acc</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Perbandingan Accuracy per Model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Plot F1-Score</span>
+<span class="n">df_f1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span><span class="s1">&#39;lightgreen&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Perbandingan F1-Score per Model&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;F1-Score (weighted)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/33c626bcf693e8bcb4844afaa4d4763ba2a94dd9a098220351cdb1f41e5fed9c.png" src="_images/33c626bcf693e8bcb4844afaa4d4763ba2a94dd9a098220351cdb1f41e5fed9c.png" />
+<img alt="_images/774237dbdfa9d1e5d4f1b753d51a7998b0e414716c55773a46ee3ad9675af3c7.png" src="_images/774237dbdfa9d1e5d4f1b753d51a7998b0e414716c55773a46ee3ad9675af3c7.png" />
+<img alt="_images/56fd517342ac53d4322f7fee20fd5598751c4fdc4cae7daf2ebd9493ea8e3194.png" src="_images/56fd517342ac53d4322f7fee20fd5598751c4fdc4cae7daf2ebd9493ea8e3194.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ecoli.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Oversampling</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#import-library">Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#load-dataset">Load Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prepocesing">Prepocesing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distribusi-kelas-target">Distribusi Kelas Target</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balancing-dengan-smote">Balancing Dengan SMOTE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-data-asli">Klasifikasi Data Asli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#klasifikasi-dengan-naive-bayes-random-forest-dan-bagging-classifier">Klasifikasi Dengan Naive Bayes, Random Forest Dan Bagging Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penampilan-data-asli">Penampilan Data Asli</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penampilan-data-setelah-smote">Penampilan Data Setelah SMOTE</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#perbandingan-performansi-model">Perbandingan Performansi Model</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Nadiatul Khoir
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
