@@ -1,0 +1,265 @@
+Traceback (most recent call last):
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+    executenb(
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codespace/.python/current/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+
+# ============================================================
+# 🎧 STREAMLIT APP — Prediksi Suara Buka/Tutup (Nadia & Vanisa Only)
+# ============================================================
+
+import streamlit as st
+import numpy as np
+import pandas as pd
+import librosa
+import librosa.display
+import joblib
+import os
+import matplotlib.pyplot as plt
+import seaborn as sns
+from streamlit_webrtc import webrtc_streamer, AudioProcessorBase, WebRtcMode
+
+# ============================================================
+# Konfigurasi Streamlit
+# ============================================================
+st.set_page_config(
+    page_title="Prediksi Suara Buka/Tutup (Nadia & Vanisa Only)",
+    page_icon="🎵",
+    layout="centered",
+)
+
+# ============================================================
+# Load model & scaler
+# ============================================================
+@st.cache_resource
+def load_model_scaler():
+    model = joblib.load("best_audio_model.pkl")
+    scaler = joblib.load("scaler_audio.pkl")
+    return model, scaler
+
+model, scaler = load_model_scaler()
+
+# ============================================================
+# Fungsi ekstraksi fitur
+# ============================================================
+def zero_crossing_rate(y):
+    return np.mean(librosa.feature.zero_crossing_rate(y=y).T, axis=0)[0]
+
+def rms(signal):
+    return np.sqrt(np.mean(signal**2))
+
+def spectral_centroid(y, sr):
+    return np.mean(librosa.feature.spectral_centroid(y=y, sr=sr))
+
+def spectral_bandwidth(y, sr):
+    return np.mean(librosa.feature.spectral_bandwidth(y=y, sr=sr))
+
+def spectral_contrast(y, sr):
+    return np.mean(librosa.feature.spectral_contrast(y=y, sr=sr))
+
+def mfcc_features(y, sr, n_mfcc=13):
+    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=n_mfcc)
+    return np.mean(mfccs, axis=1)
+
+def extract_features(file_path):
+    y, sr = librosa.load(file_path, sr=22050)
+    features = [
+        zero_crossing_rate(y),
+        rms(y),
+        spectral_centroid(y, sr),
+        spectral_bandwidth(y, sr),
+        spectral_contrast(y, sr),
+    ]
+    mfccs = mfcc_features(y, sr)
+    features.extend(mfccs.tolist())
+    return np.array(features).reshape(1, -1), y, sr
+
+# ============================================================
+# Prediksi (Locked Speaker: Nadia & Vanisa)
+# ============================================================
+def predict_audio(file_path=None, y=None, sr=None, threshold=0.6):
+    if file_path:
+        features, y, sr = extract_features(file_path)
+    else:
+        # Buat fitur dari waveform langsung
+        features = [
+            zero_crossing_rate(y),
+            rms(y),
+            spectral_centroid(y, sr),
+            spectral_bandwidth(y, sr),
+            spectral_contrast(y, sr),
+        ]
+        mfccs = mfcc_features(y, sr)
+        features.extend(mfccs.tolist())
+        features = np.array(features).reshape(1, -1)
+
+    features_scaled = scaler.transform(features)
+    probs = model.predict_proba(features_scaled)[0]
+    labels = model.classes_
+
+    idx_top = np.argmax(probs)
+    pred_label = labels[idx_top]
+    pred_prob = probs[idx_top]
+
+    parts = pred_label.lower().split("_")
+    speaker = parts[0] if len(parts) > 0 else "unknown"
+    status = parts[1].capitalize() if len(parts) > 1 else "-"
+
+    allowed = ["nadia", "vanisa"]
+    if speaker not in allowed or pred_prob < threshold:
+        speaker = "Unknown"
+        status = "Tidak diketahui"
+
+    return speaker.capitalize(), status, pred_prob, probs, labels, y, sr
+
+# ============================================================
+# UI Streamlit
+# ============================================================
+st.title("🎧 Prediksi Suara Buka/Tutup")
+st.markdown(
+    """
+    <p style="font-size:16px;">Aplikasi ini hanya menerima suara dari <b>Nadia</b> dan <b>Vanisa</b>.<br>
+    Jika suara lain terdeteksi, hasil akan menjadi <b>Unknown</b>.</p>
+    """,
+    unsafe_allow_html=True,
+)
+
+# 🧩 Slider threshold
+st.sidebar.header("⚙️ Pengaturan Model")
+threshold = st.sidebar.slider(
+    "Ambang Confidence (Threshold)",
+    min_value=0.3,
+    max_value=0.9,
+    value=0.6,
+    step=0.05,
+    help="Semakin tinggi nilainya, semakin ketat sistem dalam mengenali suara.",
+)
+
+# ============================================================
+# Upload file audio
+# ============================================================
+uploaded_file = st.file_uploader("🎵 Upload file audio (.wav)", type=["wav"])
+if uploaded_file:
+    temp_path = "temp_audio.wav"
+    with open(temp_path, "wb") as f:
+        f.write(uploaded_file.read())
+
+    st.audio(temp_path, format="audio/wav")
+    with st.spinner("⏳ Memproses audio..."):
+        speaker, status, prob, probs, labels, y, sr = predict_audio(temp_path, threshold)
+
+    # Tampilkan hasil
+    st.markdown("---")
+    st.subheader("🎯 Hasil Prediksi")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Speaker", speaker)
+    with col2:
+        st.metric("Status Suara", status)
+    st.metric("Confidence (%)", f"{prob*100:.2f}%")
+
+    # Tabel probabilitas
+    prob_df = pd.DataFrame({"Kelas": labels, "Probabilitas (%)": [round(float(p)*100, 2) for p in probs]}).sort_values("Probabilitas (%)", ascending=False)
+    st.markdown("#### 📊 Probabilitas Tiap Kelas")
+    st.table(prob_df.style.set_table_styles([{"selector": "th","props":[("text-align","center"),("font-weight","bold")]},{"selector":"td","props":[("text-align","center")]}]))
+
+    # Waveform & Mel Spectrogram
+    st.subheader("📈 Waveform Audio")
+    fig, ax = plt.subplots(figsize=(8, 3))
+    librosa.display.waveshow(y, sr=sr, ax=ax)
+    ax.set_title("Waveform Audio", fontsize=12)
+    st.pyplot(fig)
+
+    st.subheader("🎛️ Mel Spectrogram")
+    S = librosa.feature.melspectrogram(y=y, sr=sr)
+    S_dB = librosa.power_to_db(S, ref=np.max)
+    fig, ax = plt.subplots(figsize=(10, 4))
+    img = librosa.display.specshow(S_dB, sr=sr, x_axis='time', y_axis='mel', ax=ax)
+    fig.colorbar(img, ax=ax, format='%+2.0f dB')
+    ax.set_title("Mel Spectrogram", fontsize=12)
+    st.pyplot(fig)
+
+    # Distribusi probabilitas
+    st.subheader("📉 Distribusi Probabilitas")
+    plt.figure(figsize=(6, 4))
+    sns.barplot(x="Kelas", y="Probabilitas (%)", data=prob_df)
+    plt.xticks(rotation=45)
+    plt.ylim(0, 100)
+    plt.tight_layout()
+    st.pyplot(plt)
+
+    os.remove(temp_path)
+
+# ============================================================
+# Rekam suara langsung dari browser
+# ============================================================
+st.markdown("---")
+st.subheader("🎤 Rekam Suara Langsung")
+webrtc_ctx = webrtc_streamer(
+    key="audio",
+    mode=WebRtcMode.SENDONLY,
+    audio_receiver_size=256,
+    media_stream_constraints={"audio": True, "video": False},
+)
+
+if webrtc_ctx.audio_receiver:
+    import _queue
+    audio_frames = []
+    try:
+        while True:
+            frame = webrtc_ctx.audio_receiver.get_frame(block=False)
+            audio_frames.append(frame)
+    except _queue.Empty:
+        pass
+
+    if audio_frames:
+        audio_data = np.concatenate([f.to_ndarray() for f in audio_frames], axis=0)
+        if audio_data.ndim > 1:
+            audio_data = np.mean(audio_data, axis=1)
+        y = audio_data.astype(np.float32)
+        sr = 44100
+
+        with st.spinner("⏳ Memproses audio rekaman..."):
+            speaker, status, prob, probs, labels, _, _ = predict_audio(y=y, sr=sr, threshold=threshold)
+
+        # Tampilkan hasil rekaman
+        st.markdown("---")
+        st.subheader("🎯 Hasil Prediksi Rekaman")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Speaker", speaker)
+        with col2:
+            st.metric("Status Suara", status)
+        st.metric("Confidence (%)", f"{prob*100:.2f}%")
+
+
+------------------
+
+
+[31m---------------------------------------------------------------------------[39m
+[31mModuleNotFoundError[39m                       Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[14][39m[32m, line 5[39m
+[32m      1[39m [38;5;66;03m# ============================================================[39;00m
+[32m      2[39m [38;5;66;03m# 🎧 STREAMLIT APP — Prediksi Suara Buka/Tutup (Nadia & Vanisa Only)[39;00m
+[32m      3[39m [38;5;66;03m# ============================================================[39;00m
+[32m----> [39m[32m5[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mstreamlit[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mst[39;00m
+[32m      6[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mnumpy[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mnp[39;00m
+[32m      7[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mpandas[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mpd[39;00m
+
+[31mModuleNotFoundError[39m: No module named 'streamlit'
+

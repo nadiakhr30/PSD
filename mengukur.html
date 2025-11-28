@@ -1,0 +1,1290 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Perhitungan Jarak Dynamic Time Warping antara 100 Audio Lama (Buka/Tutup) dan 1 Audio Baru &#8212; Nadiatul Khoir</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'mengukur';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Sistem Identifikasi Suara Terbatas untuk Pengguna Tertentu (Minimal 2 Orang)" href="identifikasisuara.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/ALFA0001-min.jpg" class="logo__image only-light" alt="Nadiatul Khoir - Home"/>
+    <script>document.write(`<img src="_static/ALFA0001-min.jpg" class="logo__image only-dark" alt="Nadiatul Khoir - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Halo…
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="businessunderstanding.html">Business Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataunderstanding.html">Data Understanding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prepocesing.html">Prepocesing - Hasil penghapusan Outlier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ecoli.html">Oversampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="klasifikasi.html">Klasifikasi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PraUTS.html">Analisis Data Ecoli Menggunakan KNIME</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NO2.html">Prediksi Multi-Hari Konsentrasi NO₂ Menggunakan Model KNN Regression</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="identifikasisuara.html">Sistem Identifikasi Suara Terbatas untuk Pengguna Tertentu (Minimal 2 Orang)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Perhitungan Jarak Dynamic Time Warping antara 100 Audio Lama (Buka/Tutup) dan 1 Audio Baru</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/nadiakhr30/PSD" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/nadiakhr30/PSD/issues/new?title=Issue%20on%20page%20%2Fmengukur.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/mengukur.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Perhitungan Jarak Dynamic Time Warping antara 100 Audio Lama (Buka/Tutup) dan 1 Audio Baru</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-import-library">Tahap 1 Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-pengecekan-dataset-audio">Tahap 2 Pengecekan Dataset Audio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-load-audio-dan-normalisasi-sample-rate-ke-16-khz">Tahap 3 Load Audio dan Normalisasi Sample Rate ke 16 kHz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-prepocessing">Tahap 4 Prepocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-visualisasi">Tahap 5 Visualisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-6-perhitungan-kemiripan-audio-menggunakan-mfcc-dan-fastdtw">Tahap 6 Perhitungan Kemiripan Audio Menggunakan MFCC dan FastDTW</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-7-ambil-5-audio-lama-paling-mirip-dengan-satu-audio-baru">Tahap 7 Ambil 5 Audio Lama Paling Mirip dengan Satu Audio Baru</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-8-heatmap-visualisasi">Tahap 8 Heatmap Visualisasi</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="perhitungan-jarak-dynamic-time-warping-antara-100-audio-lama-buka-tutup-dan-1-audio-baru">
+<h1>Perhitungan Jarak Dynamic Time Warping antara 100 Audio Lama (Buka/Tutup) dan 1 Audio Baru<a class="headerlink" href="#perhitungan-jarak-dynamic-time-warping-antara-100-audio-lama-buka-tutup-dan-1-audio-baru" title="Permalink to this heading">#</a></h1>
+<section id="tahap-1-import-library">
+<h2>Tahap 1 Import Library<a class="headerlink" href="#tahap-1-import-library" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa.display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastdtw</span><span class="w"> </span><span class="kn">import</span> <span class="n">fastdtw</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">euclidean</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-2-pengecekan-dataset-audio">
+<h2>Tahap 2 Pengecekan Dataset Audio<a class="headerlink" href="#tahap-2-pengecekan-dataset-audio" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="c1"># Folder dataset</span>
+<span class="n">folder_buka</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioLama/&quot;</span>
+<span class="n">folder_new</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioBaru/&quot;</span>
+
+<span class="c1"># --- Fungsi untuk mendapatkan file .wav ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_wav_files</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Folder tidak ditemukan: </span><span class="si">{</span><span class="n">folder</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span> <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+
+<span class="c1"># --- Ambil file dari tiap folder ---</span>
+<span class="n">buka_files</span> <span class="o">=</span> <span class="n">get_wav_files</span><span class="p">(</span><span class="n">folder_buka</span><span class="p">)</span>
+<span class="n">new_files</span> <span class="o">=</span> <span class="n">get_wav_files</span><span class="p">(</span><span class="n">folder_new</span><span class="p">)</span>
+
+<span class="c1"># --- TAMPILKAN INFO DATASET ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== DATASET CHECK ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah audio &#39;buka&#39;  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">buka_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> file&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah audio &#39;baru&#39;  : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">new_files</span><span class="p">)</span><span class="si">}</span><span class="s2"> file&quot;</span><span class="p">)</span>
+
+<span class="c1"># Tampilkan maksimal 10 contoh file baru</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Contoh file &#39;buka&#39; :&quot;</span><span class="p">,</span> <span class="n">buka_files</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Contoh file &#39;baru&#39; :&quot;</span><span class="p">,</span> <span class="n">new_files</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+
+<span class="c1"># --- Validasi dataset ---</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buka_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Error: Tidak ada audio di folder AudioLama/&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Error: Tidak ada audio di folder AudioBaru/&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2"> Dataset siap diproses! Semua file dalam format .wav&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== DATASET CHECK ===
+Jumlah audio &#39;buka&#39;  : 100 file
+Jumlah audio &#39;baru&#39;  : 1 file
+
+Contoh file &#39;buka&#39; : [&#39;buka 1.wav&#39;, &#39;buka 57.wav&#39;, &#39;buka10.wav&#39;, &#39;buka100.wav&#39;, &#39;buka11.wav&#39;]
+Contoh file &#39;baru&#39; : [&#39;baru1.wav&#39;]
+
+ Dataset siap diproses! Semua file dalam format .wav
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-3-load-audio-dan-normalisasi-sample-rate-ke-16-khz">
+<h2>Tahap 3 Load Audio dan Normalisasi Sample Rate ke 16 kHz<a class="headerlink" href="#tahap-3-load-audio-dan-normalisasi-sample-rate-ke-16-khz" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">folder_lama</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioLama/&quot;</span>
+<span class="n">folder_baru</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioBaru/&quot;</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">load_all_audio</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="mi">16000</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sr_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># untuk menyimpan sample rate asli</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+            <span class="c1"># Ambil sample rate asli</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sr_original</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">get_samplerate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">sr_original</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="n">sr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sr_original</span><span class="p">)</span>
+
+            <span class="c1"># Load + paksa samakan sr</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">target_sr</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">sr_list</span>
+
+
+<span class="c1"># === LOAD DATASET ===</span>
+<span class="n">audio_lama</span><span class="p">,</span> <span class="n">sr_lama</span> <span class="o">=</span> <span class="n">load_all_audio</span><span class="p">(</span><span class="n">folder_lama</span><span class="p">)</span>
+<span class="n">audio_baru</span><span class="p">,</span> <span class="n">sr_baru</span> <span class="o">=</span> <span class="n">load_all_audio</span><span class="p">(</span><span class="n">folder_baru</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah audio lama :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_lama</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Jumlah audio baru :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_baru</span><span class="p">))</span>
+
+<span class="c1"># === CEK APAKAH SAMPLE RATE SAMA? ===</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">check_sr</span><span class="p">(</span><span class="n">sr_list</span><span class="p">,</span> <span class="n">jenis</span><span class="p">):</span>
+    <span class="n">unik</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">sr_list</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Sample rate asli </span><span class="si">{</span><span class="n">jenis</span><span class="si">}</span><span class="s2"> :&quot;</span><span class="p">,</span> <span class="n">unik</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="kc">None</span> <span class="ow">in</span> <span class="n">unik</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Ada file yang gagal dibaca sample ratenya!&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">unik</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Semua sample rate </span><span class="si">{</span><span class="n">jenis</span><span class="si">}</span><span class="s2"> konsisten!&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; Sample rate </span><span class="si">{</span><span class="n">jenis</span><span class="si">}</span><span class="s2"> TIDAK sama! Harus disamakan.&quot;</span><span class="p">)</span>
+
+
+<span class="n">check_sr</span><span class="p">(</span><span class="n">sr_lama</span><span class="p">,</span> <span class="s2">&quot;audio lama&quot;</span><span class="p">)</span>
+<span class="n">check_sr</span><span class="p">(</span><span class="n">sr_baru</span><span class="p">,</span> <span class="s2">&quot;audio baru&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Jumlah audio lama : 100
+Jumlah audio baru : 1
+
+Sample rate asli audio lama : {48000}
+ Semua sample rate audio lama konsisten!
+
+Sample rate asli audio baru : {48000}
+ Semua sample rate audio baru konsisten!
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-4-prepocessing">
+<h2>Tahap 4 Prepocessing<a class="headerlink" href="#tahap-4-prepocessing" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+
+<span class="c1"># Folder dataset</span>
+<span class="n">folder_lama</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioLama/&quot;</span>
+<span class="n">folder_baru</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioBaru/&quot;</span>
+
+<span class="c1"># Target sample rate</span>
+<span class="n">TARGET_SR</span> <span class="o">=</span> <span class="mi">16000</span>
+
+<span class="c1"># Fungsi untuk load dan preprocess audio</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_and_preprocess</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load semua file .wav dari folder, convert ke mono, normalize amplitude.</span>
+<span class="sd">    Mengembalikan dictionary {filename: audio_array} dan list sample rate asli.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sr_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+            <span class="c1"># Ambil sample rate asli</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">sr_orig</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">get_samplerate</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">sr_orig</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">sr_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sr_orig</span><span class="p">)</span>
+
+            <span class="c1"># Load audio, convert stereo → mono otomatis, resample ke target_sr</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">target_sr</span><span class="p">)</span>
+
+            <span class="c1"># --- Preprocessing ringan ---</span>
+            <span class="c1"># Normalize amplitude supaya volume konsisten</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+            <span class="c1"># Simpan hasil</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="n">sr_list</span>
+
+<span class="c1"># === Load dan preprocess semua audio lama dan baru ===</span>
+<span class="n">audio_lama</span><span class="p">,</span> <span class="n">sr_lama</span> <span class="o">=</span> <span class="n">load_and_preprocess</span><span class="p">(</span><span class="n">folder_lama</span><span class="p">)</span>
+<span class="n">audio_baru</span><span class="p">,</span> <span class="n">sr_baru</span> <span class="o">=</span> <span class="n">load_and_preprocess</span><span class="p">(</span><span class="n">folder_baru</span><span class="p">)</span>
+
+<span class="c1"># === Info dataset setelah preprocessing ===</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot; Preprocessing selesai&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah audio lama : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">audio_lama</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Jumlah audio baru : </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">audio_baru</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Preprocessing selesai
+Jumlah audio lama : 100
+Jumlah audio baru : 1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-5-visualisasi">
+<h2>Tahap 5 Visualisasi<a class="headerlink" href="#tahap-5-visualisasi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Folder dataset</span>
+<span class="n">folder_lama</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioLama/&quot;</span>
+<span class="n">TARGET_SR</span> <span class="o">=</span> <span class="mi">16000</span>
+
+<span class="c1"># --- Load raw audio (sebelum preprocessing) ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_raw_audio</span><span class="p">(</span><span class="n">folder</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">sr</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># sr=None biar tetap asli</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">raw_audio_lama</span> <span class="o">=</span> <span class="n">load_raw_audio</span><span class="p">(</span><span class="n">folder_lama</span><span class="p">)</span>
+
+<span class="c1"># --- Load &amp; preprocessing audio ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_and_preprocess</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">target_sr</span><span class="p">)</span>  <span class="c1"># convert mono + resample</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>             <span class="c1"># normalize amplitude</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">audio_lama</span> <span class="o">=</span> <span class="n">load_and_preprocess</span><span class="p">(</span><span class="n">folder_lama</span><span class="p">)</span>
+
+<span class="c1"># --- Pilih file pertama ---</span>
+<span class="n">first_file</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">audio_lama</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># --- Fungsi untuk menampilkan waveform dan spectrogram ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_audio</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Audio&quot;</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+    <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">waveshow</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Waveform: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Waktu (detik)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Amplitudo&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Spectrogram</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">stft</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">S_db</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">amplitude_to_db</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">D</span><span class="p">),</span> <span class="n">ref</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">librosa</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">specshow</span><span class="p">(</span><span class="n">S_db</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">x_axis</span><span class="o">=</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">y_axis</span><span class="o">=</span><span class="s1">&#39;hz&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;magma&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%+2.0f</span><span class="s2"> dB&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Spectrogram: </span><span class="si">{</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># Info</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Durasi:&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="n">sr</span><span class="p">,</span> <span class="s2">&quot;detik&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Min amplitude:&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="s2">&quot;Max amplitude:&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+
+<span class="c1"># --- Plot raw audio ---</span>
+<span class="n">y_raw</span><span class="p">,</span> <span class="n">sr_raw</span> <span class="o">=</span> <span class="n">raw_audio_lama</span><span class="p">[</span><span class="n">first_file</span><span class="p">]</span>
+<span class="n">plot_audio</span><span class="p">(</span><span class="n">y_raw</span><span class="p">,</span> <span class="n">sr_raw</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">first_file</span><span class="si">}</span><span class="s2"> (Sebelum Preprocessing)&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Plot preprocessed audio ---</span>
+<span class="n">y_proc</span> <span class="o">=</span> <span class="n">audio_lama</span><span class="p">[</span><span class="n">first_file</span><span class="p">]</span>
+<span class="n">plot_audio</span><span class="p">(</span><span class="n">y_proc</span><span class="p">,</span> <span class="n">TARGET_SR</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">first_file</span><span class="si">}</span><span class="s2"> (Setelah Preprocessing)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cb273051ffee35a38505678ed83da00b71254e31e22591f25e66b856705514bd.png" src="_images/cb273051ffee35a38505678ed83da00b71254e31e22591f25e66b856705514bd.png" />
+<img alt="_images/3f586f92385a4f52553673da2c745f9ef3c9b6887c7d02412afceca3e28416ce.png" src="_images/3f586f92385a4f52553673da2c745f9ef3c9b6887c7d02412afceca3e28416ce.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Durasi: 1.296 detik
+Min amplitude: -0.49389648 Max amplitude: 0.51989746
+</pre></div>
+</div>
+<img alt="_images/f459ff77ccf183315d14320a5d973955d162b6ece71a39d43b8eca6752ff389d.png" src="_images/f459ff77ccf183315d14320a5d973955d162b6ece71a39d43b8eca6752ff389d.png" />
+<img alt="_images/1c88ac55afdc0c469e198b12b66141a7bfcca7c8663548adf3d5923f982d8160.png" src="_images/1c88ac55afdc0c469e198b12b66141a7bfcca7c8663548adf3d5923f982d8160.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Durasi: 1.296 detik
+Min amplitude: -0.9513202 Max amplitude: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-6-perhitungan-kemiripan-audio-menggunakan-mfcc-dan-fastdtw">
+<h2>Tahap 6 Perhitungan Kemiripan Audio Menggunakan MFCC dan FastDTW<a class="headerlink" href="#tahap-6-perhitungan-kemiripan-audio-menggunakan-mfcc-dan-fastdtw" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">librosa</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastdtw</span><span class="w"> </span><span class="kn">import</span> <span class="n">fastdtw</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial.distance</span><span class="w"> </span><span class="kn">import</span> <span class="n">euclidean</span>
+
+<span class="c1"># --- Folder &amp; parameter ---</span>
+<span class="n">folder_lama</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioLama/&quot;</span>
+<span class="n">folder_baru</span> <span class="o">=</span> <span class="s2">&quot;AudioDTW/AudioBaru/&quot;</span>
+<span class="n">TARGET_SR</span> <span class="o">=</span> <span class="mi">16000</span>
+
+<span class="n">n_mfcc</span> <span class="o">=</span> <span class="mi">13</span>
+<span class="n">hop_length</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">n_fft</span> <span class="o">=</span> <span class="mi">2048</span>
+
+<span class="c1"># --- Load &amp; Preprocessing ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_and_preprocess</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">target_sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">folder</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.wav&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+            <span class="n">y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">target_sr</span><span class="p">)</span>
+            <span class="n">y</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">normalize</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="n">audio_lama</span> <span class="o">=</span> <span class="n">load_and_preprocess</span><span class="p">(</span><span class="n">folder_lama</span><span class="p">)</span>
+<span class="n">audio_baru</span> <span class="o">=</span> <span class="n">load_and_preprocess</span><span class="p">(</span><span class="n">folder_baru</span><span class="p">)</span>
+
+<span class="c1"># --- Ekstraksi MFCC ---</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extract_mfcc</span><span class="p">(</span><span class="n">audio_dict</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">TARGET_SR</span><span class="p">,</span> <span class="n">n_mfcc</span><span class="o">=</span><span class="n">n_mfcc</span><span class="p">,</span> <span class="n">hop_length</span><span class="o">=</span><span class="n">hop_length</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span><span class="p">):</span>
+    <span class="n">mfcc_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">filename</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">audio_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">mfcc</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">mfcc</span><span class="p">(</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">sr</span><span class="o">=</span><span class="n">sr</span><span class="p">,</span> <span class="n">n_mfcc</span><span class="o">=</span><span class="n">n_mfcc</span><span class="p">,</span>
+            <span class="n">hop_length</span><span class="o">=</span><span class="n">hop_length</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span>
+        <span class="p">)</span>
+        <span class="n">mfcc_dict</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">mfcc</span>
+    <span class="k">return</span> <span class="n">mfcc_dict</span>
+
+<span class="n">mfcc_lama</span> <span class="o">=</span> <span class="n">extract_mfcc</span><span class="p">(</span><span class="n">audio_lama</span><span class="p">)</span>
+<span class="n">mfcc_baru</span> <span class="o">=</span> <span class="n">extract_mfcc</span><span class="p">(</span><span class="n">audio_baru</span><span class="p">)</span>
+
+<span class="c1"># --- CEK UKURAN MFCC 13×T ---</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Ukuran MFCC Audio Lama (13 × T) ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">mfcc_lama</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mfcc_lama</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Ukuran MFCC Audio Baru (13 × T) ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">mfcc_baru</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">mfcc_baru</span><span class="p">[</span><span class="n">f</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># --- Hitung FastDTW untuk semua pasangan ---</span>
+<span class="n">files_lama</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mfcc_lama</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="n">files_baru</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mfcc_baru</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+
+<span class="n">distance_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">files_lama</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">files_baru</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">f_lama</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">files_lama</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">mfcc_lama</span><span class="p">[</span><span class="n">f_lama</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">f_baru</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">files_baru</span><span class="p">):</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">mfcc_baru</span><span class="p">[</span><span class="n">f_baru</span><span class="p">]</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">distance</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">fastdtw</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">dist</span><span class="o">=</span><span class="n">euclidean</span><span class="p">)</span>
+        <span class="n">distance_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">distance</span>
+
+<span class="c1"># --- Tampilkan dalam bentuk DataFrame ---</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">distance_matrix</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">files_lama</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">files_baru</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== FastDTW Distance Table (Rapi) ===</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Ukuran MFCC Audio Lama (13 × T) ===
+buka 1.wav: (13, 41)
+buka 57.wav: (13, 34)
+buka10.wav: (13, 63)
+buka100.wav: (13, 43)
+buka11.wav: (13, 74)
+buka12.wav: (13, 70)
+buka13.wav: (13, 61)
+buka14.wav: (13, 67)
+buka15.wav: (13, 56)
+buka16.wav: (13, 60)
+buka17.wav: (13, 67)
+buka18.wav: (13, 63)
+buka19.wav: (13, 52)
+buka2.wav: (13, 65)
+buka20.wav: (13, 55)
+buka21.wav: (13, 58)
+buka22.wav: (13, 55)
+buka23.wav: (13, 52)
+buka24.wav: (13, 64)
+buka25.wav: (13, 55)
+buka26.wav: (13, 49)
+buka27.wav: (13, 54)
+buka28.wav: (13, 52)
+buka29.wav: (13, 60)
+buka3.wav: (13, 75)
+buka30.wav: (13, 49)
+buka31.wav: (13, 59)
+buka32.wav: (13, 54)
+buka33.wav: (13, 55)
+buka34.wav: (13, 39)
+buka35.wav: (13, 50)
+buka36.wav: (13, 52)
+buka37.wav: (13, 56)
+buka38.wav: (13, 45)
+buka39.wav: (13, 43)
+buka4.wav: (13, 74)
+buka40.wav: (13, 49)
+buka41.wav: (13, 48)
+buka42.wav: (13, 50)
+buka43.wav: (13, 45)
+buka44.wav: (13, 44)
+buka45.wav: (13, 37)
+buka46.wav: (13, 41)
+buka47.wav: (13, 45)
+buka48.wav: (13, 52)
+buka49.wav: (13, 41)
+buka5.wav: (13, 69)
+buka50.wav: (13, 35)
+buka51.wav: (13, 48)
+buka52.wav: (13, 43)
+buka53.wav: (13, 55)
+buka54.wav: (13, 46)
+buka55.wav: (13, 44)
+buka56.wav: (13, 49)
+buka58.wav: (13, 37)
+buka59.wav: (13, 48)
+buka6.wav: (13, 60)
+buka60.wav: (13, 39)
+buka61.wav: (13, 40)
+buka62.wav: (13, 41)
+buka63.wav: (13, 39)
+buka64.wav: (13, 37)
+buka65.wav: (13, 37)
+buka66.wav: (13, 39)
+buka67.wav: (13, 43)
+buka68.wav: (13, 44)
+buka69.wav: (13, 43)
+buka7.wav: (13, 63)
+buka70.wav: (13, 35)
+buka71.wav: (13, 30)
+buka72.wav: (13, 35)
+buka73.wav: (13, 35)
+buka74.wav: (13, 37)
+buka75.wav: (13, 39)
+buka76.wav: (13, 28)
+buka77.wav: (13, 28)
+buka78.wav: (13, 33)
+buka79.wav: (13, 35)
+buka8.wav: (13, 71)
+buka80.wav: (13, 34)
+buka81.wav: (13, 46)
+buka82.wav: (13, 31)
+buka83.wav: (13, 35)
+buka84.wav: (13, 31)
+buka85.wav: (13, 46)
+buka86.wav: (13, 40)
+buka87.wav: (13, 41)
+buka88.wav: (13, 33)
+buka89.wav: (13, 48)
+buka9.wav: (13, 67)
+buka90.wav: (13, 33)
+buka91.wav: (13, 29)
+buka92.wav: (13, 29)
+buka93.wav: (13, 29)
+buka94.wav: (13, 39)
+buka95.wav: (13, 34)
+buka96.wav: (13, 26)
+buka97.wav: (13, 33)
+buka98.wav: (13, 39)
+buka99.wav: (13, 33)
+
+=== Ukuran MFCC Audio Baru (13 × T) ===
+baru1.wav: (13, 60)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== FastDTW Distance Table (Rapi) ===
+
+               baru1.wav
+buka 1.wav   4362.709660
+buka 57.wav  4577.638368
+buka10.wav   4764.123096
+buka100.wav  5206.768279
+buka11.wav   4841.085008
+buka12.wav   3577.330609
+buka13.wav   4666.335249
+buka14.wav   4620.706966
+buka15.wav   4392.945598
+buka16.wav   5033.176446
+buka17.wav   5049.940936
+buka18.wav   4208.954799
+buka19.wav   3924.591284
+buka2.wav    3664.468699
+buka20.wav   3839.894876
+buka21.wav   3666.936965
+buka22.wav   3722.374522
+buka23.wav   3771.434325
+buka24.wav   6621.631600
+buka25.wav   4337.071768
+buka26.wav   5187.264930
+buka27.wav   3864.246991
+buka28.wav   3964.630317
+buka29.wav   5457.215215
+buka3.wav    5090.923665
+buka30.wav   4254.404911
+buka31.wav   4850.939598
+buka32.wav   4124.273464
+buka33.wav   4426.153178
+buka34.wav   4804.313413
+buka35.wav   3814.108454
+buka36.wav   4074.516438
+buka37.wav   4040.771430
+buka38.wav   3898.806742
+buka39.wav   4394.466191
+buka4.wav    5953.700200
+buka40.wav   4328.640743
+buka41.wav   4374.602432
+buka42.wav   4305.999073
+buka43.wav   4061.546536
+buka44.wav   4082.824827
+buka45.wav   4187.508765
+buka46.wav   4507.253663
+buka47.wav   3985.292606
+buka48.wav   4171.178756
+buka49.wav   5138.846637
+buka5.wav    4591.707932
+buka50.wav   4210.424535
+buka51.wav   4441.438083
+buka52.wav   5190.425232
+buka53.wav   4448.565644
+buka54.wav   4313.880906
+buka55.wav   3831.150225
+buka56.wav   4768.477737
+buka58.wav   4963.801734
+buka59.wav   3965.363993
+buka6.wav    3981.319705
+buka60.wav   4016.366102
+buka61.wav   5389.327638
+buka62.wav   4122.168247
+buka63.wav   4599.212633
+buka64.wav   4985.480879
+buka65.wav   4437.703034
+buka66.wav   4599.547684
+buka67.wav   4228.919173
+buka68.wav   3883.201187
+buka69.wav   5471.721154
+buka7.wav    4335.316048
+buka70.wav   4736.911828
+buka71.wav   6544.597889
+buka72.wav   5767.510695
+buka73.wav   7413.866411
+buka74.wav   5237.752597
+buka75.wav   5381.460749
+buka76.wav   7495.450169
+buka77.wav   8275.028218
+buka78.wav   8522.577582
+buka79.wav   5187.529342
+buka8.wav    4197.516986
+buka80.wav   5049.268252
+buka81.wav   4396.144325
+buka82.wav   5290.218383
+buka83.wav   5144.972684
+buka84.wav   5126.806561
+buka85.wav   4982.049366
+buka86.wav   5230.151118
+buka87.wav   5521.091223
+buka88.wav   4754.007339
+buka89.wav   4982.885899
+buka9.wav    3593.319786
+buka90.wav   5712.245813
+buka91.wav   4970.871555
+buka92.wav   4837.898353
+buka93.wav   5657.056355
+buka94.wav   5367.857001
+buka95.wav   5116.367356
+buka96.wav   5173.297056
+buka97.wav   5111.161167
+buka98.wav   4931.854522
+buka99.wav   5580.596210
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-7-ambil-5-audio-lama-paling-mirip-dengan-satu-audio-baru">
+<h2>Tahap 7 Ambil 5 Audio Lama Paling Mirip dengan Satu Audio Baru<a class="headerlink" href="#tahap-7-ambil-5-audio-lama-paling-mirip-dengan-satu-audio-baru" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">target_audio_baru</span> <span class="o">=</span> <span class="s2">&quot;baru1.wav&quot;</span>   <span class="c1"># ubah sesuai file target</span>
+<span class="n">top_n</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== 5 Audio Lama Paling Mirip dengan </span><span class="si">{</span><span class="n">target_audio_baru</span><span class="si">}</span><span class="s2"> ===&quot;</span><span class="p">)</span>
+
+<span class="c1"># Sort berdasarkan jarak terkecil</span>
+<span class="n">top_matches</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">target_audio_baru</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">top_n</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">top_matches</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== 5 Audio Lama Paling Mirip dengan baru1.wav ===
+buka12.wav    3577.330609
+buka9.wav     3593.319786
+buka2.wav     3664.468699
+buka21.wav    3666.936965
+buka22.wav    3722.374522
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="tahap-8-heatmap-visualisasi">
+<h2>Tahap 8 Heatmap Visualisasi<a class="headerlink" href="#tahap-8-heatmap-visualisasi" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================</span>
+<span class="c1">#   TAHAP 8 — Heatmap Visualisasi</span>
+<span class="c1"># ============================</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Heatmap FastDTW Distance (Audio Lama × Audio Baru)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Audio Baru&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Audio Lama&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a6ac44da77d4c8a9f22944e7cf391cde03e40cc39c24a66d5da75adf96779662.png" src="_images/a6ac44da77d4c8a9f22944e7cf391cde03e40cc39c24a66d5da75adf96779662.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Debug Jumlah Audio ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File lama terbaca :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_lama</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File baru terbaca :&quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">audio_baru</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Daftar file lama:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">audio_lama</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Debug Jumlah Audio ===
+File lama terbaca : 100
+File baru terbaca : 1
+
+Daftar file lama:
+buka 1.wav
+buka 57.wav
+buka10.wav
+buka100.wav
+buka11.wav
+buka12.wav
+buka13.wav
+buka14.wav
+buka15.wav
+buka16.wav
+buka17.wav
+buka18.wav
+buka19.wav
+buka2.wav
+buka20.wav
+buka21.wav
+buka22.wav
+buka23.wav
+buka24.wav
+buka25.wav
+buka26.wav
+buka27.wav
+buka28.wav
+buka29.wav
+buka3.wav
+buka30.wav
+buka31.wav
+buka32.wav
+buka33.wav
+buka34.wav
+buka35.wav
+buka36.wav
+buka37.wav
+buka38.wav
+buka39.wav
+buka4.wav
+buka40.wav
+buka41.wav
+buka42.wav
+buka43.wav
+buka44.wav
+buka45.wav
+buka46.wav
+buka47.wav
+buka48.wav
+buka49.wav
+buka5.wav
+buka50.wav
+buka51.wav
+buka52.wav
+buka53.wav
+buka54.wav
+buka55.wav
+buka56.wav
+buka58.wav
+buka59.wav
+buka6.wav
+buka60.wav
+buka61.wav
+buka62.wav
+buka63.wav
+buka64.wav
+buka65.wav
+buka66.wav
+buka67.wav
+buka68.wav
+buka69.wav
+buka7.wav
+buka70.wav
+buka71.wav
+buka72.wav
+buka73.wav
+buka74.wav
+buka75.wav
+buka76.wav
+buka77.wav
+buka78.wav
+buka79.wav
+buka8.wav
+buka80.wav
+buka81.wav
+buka82.wav
+buka83.wav
+buka84.wav
+buka85.wav
+buka86.wav
+buka87.wav
+buka88.wav
+buka89.wav
+buka9.wav
+buka90.wav
+buka91.wav
+buka92.wav
+buka93.wav
+buka94.wav
+buka95.wav
+buka96.wav
+buka97.wav
+buka98.wav
+buka99.wav
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="identifikasisuara.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sistem Identifikasi Suara Terbatas untuk Pengguna Tertentu (Minimal 2 Orang)</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-1-import-library">Tahap 1 Import Library</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-2-pengecekan-dataset-audio">Tahap 2 Pengecekan Dataset Audio</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-3-load-audio-dan-normalisasi-sample-rate-ke-16-khz">Tahap 3 Load Audio dan Normalisasi Sample Rate ke 16 kHz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-4-prepocessing">Tahap 4 Prepocessing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-5-visualisasi">Tahap 5 Visualisasi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-6-perhitungan-kemiripan-audio-menggunakan-mfcc-dan-fastdtw">Tahap 6 Perhitungan Kemiripan Audio Menggunakan MFCC dan FastDTW</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-7-ambil-5-audio-lama-paling-mirip-dengan-satu-audio-baru">Tahap 7 Ambil 5 Audio Lama Paling Mirip dengan Satu Audio Baru</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tahap-8-heatmap-visualisasi">Tahap 8 Heatmap Visualisasi</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
