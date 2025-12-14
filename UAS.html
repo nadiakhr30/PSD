@@ -192,6 +192,8 @@ const thebe_selector_output = ".output, .cell_output"
 
 
 
+
+
 </ul>
 
     </div>
@@ -389,11 +391,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SonyAIBORobotSurface2</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#business-undestanding">Business Undestanding</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">1.1 Latar Belakang</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">1.2 Masalah yang dihadapi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">1.3 Tujuan Proyek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-proyek">1.4 Ruang Lingkup Proyek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indikator-keberhasilan">1.5 Indikator Keberhasilan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">Masalah yang dihadapi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">Tujuan Proyek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-proyek">Ruang Lingkup Proyek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indikator-keberhasilan">Indikator Keberhasilan</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a></li>
@@ -427,6 +429,7 @@ document.write(`
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prepocessing">Prepocessing</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variabel-raw">Variabel Raw</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-untuk-data-uji-streamlit">Data untuk data uji streamlit</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-filtering-smoothing-data-sensor">Noise Filtering / Smoothing Data Sensor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tangani-outlier-winsorizing">Tangani Outlier (Winsorizing)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-standardscaler">Scaling (StandardScaler)</a></li>
@@ -439,9 +442,10 @@ document.write(`
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-data">Pemodelan Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemilihan-model-terbaik">Pemilihan Model Terbaik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-model-menggunakan-knn">Melatih Model Menggunakan KNN</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">EVALUASI MODEL</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">Evaluasi Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">Deployment</a></li>
 </ul>
 
             </nav>
@@ -460,7 +464,7 @@ document.write(`
 <section id="business-undestanding">
 <h1>Business Undestanding<a class="headerlink" href="#business-undestanding" title="Permalink to this heading">#</a></h1>
 <section id="latar-belakang">
-<h2>1.1 Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h2>
+<h2>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h2>
 <p>Robot zaman sekarang sudah makin pintar, tapi tetap punya satu kelemahan dimana dia belum mengetahui jenis permukaan yang sedang diinjaknya.</p>
 <p>Setiap permukaan memberi pola getaran yang berbeda:</p>
 <ul class="simple">
@@ -473,7 +477,7 @@ document.write(`
 <p>Dimana dataset SonyAIBORobotSurface2 menyimpan semua rekaman ini. Jadi setiap sampel data = 1 langkah robot = 65 titik getaran.</p>
 </section>
 <section id="masalah-yang-dihadapi">
-<h2>1.2 Masalah yang dihadapi<a class="headerlink" href="#masalah-yang-dihadapi" title="Permalink to this heading">#</a></h2>
+<h2>Masalah yang dihadapi<a class="headerlink" href="#masalah-yang-dihadapi" title="Permalink to this heading">#</a></h2>
 <p>Saat ini, robot AIBO belum punya model untuk mendeteksi permukaan secara otomatis. Akibatnya:</p>
 <ol class="arabic simple">
 <li><p>Robot tidak bisa menyesuaikan kecepatan atau cara jalan sesuai kondisi lantai.</p></li>
@@ -484,7 +488,7 @@ document.write(`
 <p>Dengan kata lain, robot berjalan “buta sensorik” meskipun data sensornya sebenarnya sudah tersedia.</p>
 </section>
 <section id="tujuan-proyek">
-<h2>1.3 Tujuan Proyek<a class="headerlink" href="#tujuan-proyek" title="Permalink to this heading">#</a></h2>
+<h2>Tujuan Proyek<a class="headerlink" href="#tujuan-proyek" title="Permalink to this heading">#</a></h2>
 <p>Tujuan proyek ini adalah:</p>
 <ol class="arabic simple">
 <li><p>Mengklasifikasikan jenis permukaan berdasarkan sinyal getaran robot (time series 1D).</p>
@@ -506,7 +510,7 @@ document.write(`
 <p>Dimana dengan cara ini, AIBO belajar “membaca bahasa getaran permukaan” dari langkahnya sendiri.</p>
 </section>
 <section id="ruang-lingkup-proyek">
-<h2>1.4 Ruang Lingkup Proyek<a class="headerlink" href="#ruang-lingkup-proyek" title="Permalink to this heading">#</a></h2>
+<h2>Ruang Lingkup Proyek<a class="headerlink" href="#ruang-lingkup-proyek" title="Permalink to this heading">#</a></h2>
 <p>Hal-hal yang dilakukan di proyek ini:</p>
 <ol class="arabic simple">
 <li><p>Menggunakan dataset SonyAIBORobotSurface2.</p></li>
@@ -517,7 +521,7 @@ EDA → preprocessing → modeling → evaluasi → deploy Streamlit.</p></li>
 </ol>
 </section>
 <section id="indikator-keberhasilan">
-<h2>1.5 Indikator Keberhasilan<a class="headerlink" href="#indikator-keberhasilan" title="Permalink to this heading">#</a></h2>
+<h2>Indikator Keberhasilan<a class="headerlink" href="#indikator-keberhasilan" title="Permalink to this heading">#</a></h2>
 <p>Supaya proyek ini dianggap berhasil, targetnya:</p>
 <p>Secara teknis:</p>
 <ul class="simple">
@@ -1786,6 +1790,42 @@ Shape: (953,)
 </div>
 </div>
 </section>
+<section id="data-untuk-data-uji-streamlit">
+<h2>Data untuk data uji streamlit<a class="headerlink" href="#data-untuk-data-uji-streamlit" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># ==========================</span>
+<span class="c1"># Ambil semua data test</span>
+<span class="c1"># ==========================</span>
+<span class="c1"># Pastikan X_test_all hanya berisi 65 fitur, tanpa kolom label</span>
+<span class="n">X_test_all</span> <span class="o">=</span> <span class="n">X_test_raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># semua baris fitur</span>
+<span class="n">y_test_all</span> <span class="o">=</span> <span class="n">y_test_raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># semua label</span>
+
+<span class="c1"># ==========================</span>
+<span class="c1"># Buat DataFrame</span>
+<span class="c1"># ==========================</span>
+<span class="c1"># Gunakan hanya 65 fitur</span>
+<span class="n">feature_columns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;V</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">65</span><span class="p">)]</span>  <span class="c1"># pastikan sesuai training</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_test_all</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">65</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">feature_columns</span><span class="p">)</span>
+
+
+<span class="c1"># ==========================</span>
+<span class="c1"># Simpan sebagai CSV</span>
+<span class="c1"># ==========================</span>
+<span class="n">df_test</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;streamlit.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CSV test lengkap siap di-upload ke Streamlit&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CSV test lengkap siap di-upload ke Streamlit
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="noise-filtering-smoothing-data-sensor">
 <h2>Noise Filtering / Smoothing Data Sensor<a class="headerlink" href="#noise-filtering-smoothing-data-sensor" title="Permalink to this heading">#</a></h2>
 <p>Berikut beberapa opsi yang umum digunakan:</p>
@@ -2002,9 +2042,7 @@ Test set:
 Scaling selesai.
 
 === Statistik Setelah Scaling (Train set) ===
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         min       25%       50%          mean       75%       max
+         min       25%       50%          mean       75%       max
 0  -1.853152 -0.651651  0.043853  3.289550e-17  0.823984  2.052845
 1  -2.457879 -0.590440 -0.011126  6.167906e-18  0.744195  2.548827
 2  -2.372308 -0.558692  0.152301 -3.957739e-17  0.832986  1.547215
@@ -2464,8 +2502,9 @@ Model KNN disimpan sebagai &#39;KNN_final_model.pkl&#39;.
 </div>
 </div>
 </section>
+</section>
 <section id="evaluasi-model">
-<h2>EVALUASI MODEL<a class="headerlink" href="#evaluasi-model" title="Permalink to this heading">#</a></h2>
+<h1>Evaluasi Model<a class="headerlink" href="#evaluasi-model" title="Permalink to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ============================================================</span>
@@ -2544,6 +2583,9 @@ Error rate kelas 1: 16.33%
 </div>
 </div>
 </section>
+<section id="deployment">
+<h1>Deployment<a class="headerlink" href="#deployment" title="Permalink to this heading">#</a></h1>
+<p><a class="reference external" href="https://4yjksdadcnk5mvjru2xzxw.streamlit.app/">https://4yjksdadcnk5mvjru2xzxw.streamlit.app/</a></p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -2603,11 +2645,11 @@ Error rate kelas 1: 16.33%
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">SonyAIBORobotSurface2</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#business-undestanding">Business Undestanding</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">1.1 Latar Belakang</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">1.2 Masalah yang dihadapi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">1.3 Tujuan Proyek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-proyek">1.4 Ruang Lingkup Proyek</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indikator-keberhasilan">1.5 Indikator Keberhasilan</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">Masalah yang dihadapi</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tujuan-proyek">Tujuan Proyek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ruang-lingkup-proyek">Ruang Lingkup Proyek</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indikator-keberhasilan">Indikator Keberhasilan</a></li>
 </ul>
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#data-understanding">Data Understanding</a></li>
@@ -2641,6 +2683,7 @@ Error rate kelas 1: 16.33%
 </li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#prepocessing">Prepocessing</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variabel-raw">Variabel Raw</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-untuk-data-uji-streamlit">Data untuk data uji streamlit</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#noise-filtering-smoothing-data-sensor">Noise Filtering / Smoothing Data Sensor</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tangani-outlier-winsorizing">Tangani Outlier (Winsorizing)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scaling-standardscaler">Scaling (StandardScaler)</a></li>
@@ -2653,9 +2696,10 @@ Error rate kelas 1: 16.33%
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#pemodelan-data">Pemodelan Data</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pemilihan-model-terbaik">Pemilihan Model Terbaik</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#melatih-model-menggunakan-knn">Melatih Model Menggunakan KNN</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">EVALUASI MODEL</a></li>
 </ul>
 </li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluasi-model">Evaluasi Model</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#deployment">Deployment</a></li>
 </ul>
 
   </nav></div>
