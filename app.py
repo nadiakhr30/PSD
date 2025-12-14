@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (Tampilan Dinamis)
+# STREAMLIT APP: KNN Robot Surface Classifier (Dinamis)
 # ============================================================
 
 import streamlit as st
@@ -105,7 +105,7 @@ if uploaded_file:
         y_true_labels = [label_mapping[i] for i in y_true_int]
 
     # ----------------------------
-    # Tampilkan mapping label di Streamlit
+    # Tampilkan mapping label
     # ----------------------------
     st.markdown("### 🔹 Label Mapping")
     st.markdown(
@@ -114,7 +114,7 @@ if uploaded_file:
     )
 
     # ----------------------------
-    # Slider untuk memilih jumlah baris yang ingin ditampilkan
+    # Slider untuk pilih jumlah baris
     # ----------------------------
     num_rows = st.slider(
         "Pilih jumlah baris data yang ingin ditampilkan:",
@@ -124,15 +124,22 @@ if uploaded_file:
     )
 
     # ----------------------------
-    # Tabel prediksi interaktif
+    # Subset data sesuai jumlah baris
+    # ----------------------------
+    X_subset = X_raw[:num_rows, :]
+    y_pred_subset = y_pred_labels[:num_rows]
+    y_true_subset = y_true_labels[:num_rows] if y_true is not None else None
+
+    # ----------------------------
+    # Tabel prediksi
     # ----------------------------
     st.subheader(f"Tabel Prediksi Permukaan ({num_rows} baris)")
 
     feature_columns = [f"V{i+1}" for i in range(X_raw.shape[1])]
-    df_display = pd.DataFrame(X_raw[:num_rows, :], columns=feature_columns)
-    df_display["Predicted Surface"] = y_pred_labels[:num_rows]
-    if y_true is not None:
-        df_display["Label"] = y_true_labels[:num_rows]
+    df_display = pd.DataFrame(X_subset, columns=feature_columns)
+    df_display["Predicted Surface"] = y_pred_subset
+    if y_true_subset is not None:
+        df_display["Label"] = y_true_subset
 
     def highlight_surface(val):
         if val == "Permukaan Licin":
@@ -145,10 +152,10 @@ if uploaded_file:
     st.dataframe(df_display.style.applymap(lambda v: highlight_surface(v), subset=["Predicted Surface"]))
 
     # ----------------------------
-    # Distribusi prediksi
+    # Distribusi prediksi untuk subset
     # ----------------------------
-    st.subheader("Distribusi Prediksi Permukaan")
-    pred_count = pd.Series(y_pred_labels).value_counts()
+    st.subheader("Distribusi Prediksi Permukaan (Subset Data)")
+    pred_count = pd.Series(y_pred_subset).value_counts()
     col1, col2 = st.columns(2)
     with col1:
         st.bar_chart(pred_count)
@@ -159,11 +166,11 @@ if uploaded_file:
         st.pyplot(fig)
 
     # ----------------------------
-    # Confusion matrix & metrics
+    # Confusion matrix & metrics (opsional)
     # ----------------------------
     if y_true is not None:
-        st.subheader("Evaluasi Model (dengan label asli)")
-        cm = confusion_matrix(y_true_labels, y_pred_labels)
+        st.subheader("Evaluasi Model (Subset Data dengan label asli)")
+        cm = confusion_matrix(y_true_subset, y_pred_subset)
         st.write("Confusion Matrix:")
         st.dataframe(cm)
 
@@ -176,12 +183,12 @@ if uploaded_file:
         plt.title("Confusion Matrix Heatmap")
         st.pyplot(fig)
 
-        accuracy = accuracy_score(y_true_labels, y_pred_labels)
+        accuracy = accuracy_score(y_true_subset, y_pred_subset)
         st.write(f"Accuracy: {accuracy*100:.2f}%")
 
-        cr = classification_report(y_true_labels, y_pred_labels)
+        cr = classification_report(y_true_subset, y_pred_subset)
         st.text("Classification Report:\n" + cr)
 
-# Footer info
+# Footer
 st.markdown("---")
 st.markdown("<p style='text-align:center;'>App menggunakan model <b>KNN</b> dengan preprocessing <b>StandardScaler → PCA → KNN</b>.</p>", unsafe_allow_html=True)
