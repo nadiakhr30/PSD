@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Visual)
+# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Aman)
 # ============================================================
 
 import streamlit as st
@@ -61,16 +61,25 @@ if uploaded_file:
     y_pred = knn_model.predict(X_pca)
 
     # ----------------------------
-    # 7️⃣ Mapping label ke nama permukaan
+    # 7️⃣ Debug unique values (cek label)
+    # ----------------------------
+    st.write("Unique values in y_pred:", np.unique(y_pred))
+
+    # ----------------------------
+    # 8️⃣ Mapping label ke nama permukaan (handle int & str)
     # ----------------------------
     label_mapping = {0: "Permukaan Licin", 1: "Permukaan Kasar"}
-    y_pred_labels = [label_mapping[i] for i in y_pred]
+    
+    # Pastikan semua y_pred jadi int sebelum mapping
+    y_pred_int = [int(i) for i in y_pred]
+    y_pred_labels = [label_mapping[i] for i in y_pred_int]
 
     if y_true is not None:
-        y_true_labels = [label_mapping[i] for i in y_true]
+        y_true_int = [int(i) for i in y_true]
+        y_true_labels = [label_mapping[i] for i in y_true_int]
 
     # ----------------------------
-    # 8️⃣ Tampilkan prediksi di tabel interaktif
+    # 9️⃣ Tampilkan prediksi di tabel interaktif
     # ----------------------------
     data["Predicted Surface"] = y_pred_labels
     st.write("Tabel Prediksi Permukaan:")
@@ -83,7 +92,7 @@ if uploaded_file:
     )
 
     # ----------------------------
-    # 9️⃣ Visualisasi distribusi prediksi
+    # 🔟 Visualisasi distribusi prediksi
     # ----------------------------
     st.subheader("Distribusi Prediksi Permukaan")
     pred_count = pd.Series(y_pred_labels).value_counts()
@@ -98,7 +107,7 @@ if uploaded_file:
     st.pyplot(fig)
 
     # ----------------------------
-    # 🔟 Confusion Matrix & Metrics (jika ada label asli)
+    # 1️⃣1️⃣ Confusion Matrix & Metrics (jika ada label asli)
     # ----------------------------
     if y_true is not None:
         st.subheader("Evaluasi Model (dengan label asli)")
