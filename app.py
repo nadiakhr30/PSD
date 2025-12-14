@@ -12,7 +12,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix, classification_report
-from imblearn.over_sampling import SMOTE
+
 
 st.title("Robot Surface Classification (KNN)")
 
@@ -33,11 +33,6 @@ if uploaded_file:
     scaler = joblib.load("scaler_standard.pkl") if "scaler_standard.pkl" in st.session_state else StandardScaler()
     X_scaled = scaler.fit_transform(X_raw)
     
-    # ============================
-    # 3️⃣ Optional: Apply SMOTE (hanya jika data train) → here for reference
-    # ============================
-    # smote = SMOTE(random_state=42)
-    # X_bal, y_bal = smote.fit_resample(X_scaled, y_train_raw)
     
     # ============================
     # 4️⃣ PCA transform
