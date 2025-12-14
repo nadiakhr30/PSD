@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (Label 1 & 2)
+# STREAMLIT APP: KNN Robot Surface Classifier (Tampilan Dinamis)
 # ============================================================
 
 import streamlit as st
@@ -97,7 +97,6 @@ if uploaded_file:
     # ----------------------------
     label_mapping = {1: "Permukaan Licin", 2: "Permukaan Kasar"}
 
-    # Pastikan semua y_pred & y_true hanya 1 atau 2
     y_pred_int = [int(i) if int(i) in label_mapping else 1 for i in y_pred]
     y_pred_labels = [label_mapping[i] for i in y_pred_int]
 
@@ -115,10 +114,26 @@ if uploaded_file:
     )
 
     # ----------------------------
+    # Slider untuk memilih jumlah baris yang ingin ditampilkan
+    # ----------------------------
+    num_rows = st.slider(
+        "Pilih jumlah baris data yang ingin ditampilkan:",
+        min_value=1,
+        max_value=X_raw.shape[0],
+        value=min(10, X_raw.shape[0])
+    )
+
+    # ----------------------------
     # Tabel prediksi interaktif
     # ----------------------------
-    data["Predicted Surface"] = y_pred_labels
-    st.subheader("Tabel Prediksi Permukaan")
+    st.subheader(f"Tabel Prediksi Permukaan ({num_rows} baris)")
+
+    feature_columns = [f"V{i+1}" for i in range(X_raw.shape[1])]
+    df_display = pd.DataFrame(X_raw[:num_rows, :], columns=feature_columns)
+    df_display["Predicted Surface"] = y_pred_labels[:num_rows]
+    if y_true is not None:
+        df_display["Label"] = y_true_labels[:num_rows]
+
     def highlight_surface(val):
         if val == "Permukaan Licin":
             return 'background-color: lightgreen'
@@ -126,7 +141,8 @@ if uploaded_file:
             return 'background-color: lightcoral'
         else:
             return ''
-    st.dataframe(data.style.applymap(lambda v: highlight_surface(v), subset=["Predicted Surface"]))
+
+    st.dataframe(df_display.style.applymap(lambda v: highlight_surface(v), subset=["Predicted Surface"]))
 
     # ----------------------------
     # Distribusi prediksi
