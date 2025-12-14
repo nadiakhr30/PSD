@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Modern)
+# STREAMLIT APP: KNN Robot Surface Classifier (Label 1 & 2)
 # ============================================================
 
 import streamlit as st
@@ -93,16 +93,16 @@ if uploaded_file:
     y_pred = knn_model.predict(X_pca)
 
     # ----------------------------
-    # Mapping label ke nama permukaan
+    # Mapping label ke nama permukaan (1 → Licin, 2 → Kasar)
     # ----------------------------
-    label_mapping = {0: "Permukaan Licin", 1: "Permukaan Kasar"}
+    label_mapping = {1: "Permukaan Licin", 2: "Permukaan Kasar"}
 
-    # Pastikan semua y_pred & y_true hanya 0 atau 1
-    y_pred_int = [int(i) if int(i) in label_mapping else 0 for i in y_pred]
+    # Pastikan semua y_pred & y_true hanya 1 atau 2
+    y_pred_int = [int(i) if int(i) in label_mapping else 1 for i in y_pred]
     y_pred_labels = [label_mapping[i] for i in y_pred_int]
 
     if y_true is not None:
-        y_true_int = [int(i) if int(i) in label_mapping else 0 for i in y_true]
+        y_true_int = [int(i) if int(i) in label_mapping else 1 for i in y_true]
         y_true_labels = [label_mapping[i] for i in y_true_int]
 
     # ----------------------------
@@ -110,8 +110,8 @@ if uploaded_file:
     # ----------------------------
     st.markdown("### 🔹 Label Mapping")
     st.markdown(
-        f"- **0 → {label_mapping[0]}**  \n"
-        f"- **1 → {label_mapping[1]}**"
+        f"- **1 → {label_mapping[1]}**  \n"
+        f"- **2 → {label_mapping[2]}**"
     )
 
     # ----------------------------
