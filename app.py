@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Modern)
+# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Stabil)
 # ============================================================
 
 import streamlit as st
@@ -81,16 +81,21 @@ if uploaded_file:
         y_true_labels = [label_mapping.get(int(i), "Unknown") for i in y_true]
 
     # ----------------------------
-    # 9️⃣ Tampilkan prediksi di tabel interaktif
+    # 9️⃣ Tampilkan prediksi di tabel interaktif (applymap aman)
     # ----------------------------
     data["Predicted Surface"] = y_pred_labels
     st.subheader("📊 Tabel Prediksi Permukaan")
+
+    def highlight_surface(val):
+        if val == "Permukaan Licin":
+            return 'background-color: lightgreen'
+        elif val == "Permukaan Kasar":
+            return 'background-color: lightcoral'
+        else:
+            return ''
+
     st.dataframe(
-        data.style.apply(
-            lambda x: ['background-color: lightgreen' if v=="Permukaan Licin" 
-                       else 'background-color: lightcoral' 
-                       for v in x["Predicted Surface"]], axis=1
-        )
+        data.style.applymap(lambda v: highlight_surface(v), subset=["Predicted Surface"])
     )
 
     # ----------------------------
