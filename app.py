@@ -1,5 +1,5 @@
 # ============================================================
-# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Stabil)
+# STREAMLIT APP: KNN Robot Surface Classifier (2 Label, Aman tanpa Unknown)
 # ============================================================
 
 import streamlit as st
@@ -72,13 +72,20 @@ if uploaded_file:
     y_pred = knn_model.predict(X_pca)
 
     # ----------------------------
-    # 8️⃣ Mapping label ke nama permukaan (AMAN)
+    # 8️⃣ Mapping label ke nama permukaan (AMAN tanpa Unknown)
     # ----------------------------
     label_mapping = {0: "Permukaan Licin", 1: "Permukaan Kasar"}
-    y_pred_labels = [label_mapping.get(int(i), "Unknown") for i in y_pred]
+
+    # Pastikan semua y_pred & y_true hanya 0 atau 1
+    y_pred_int = [int(i) for i in y_pred]
+    y_pred_int = [i if i in label_mapping else 0 for i in y_pred_int]  # fallback ke 0
+
+    y_pred_labels = [label_mapping[i] for i in y_pred_int]
 
     if y_true is not None:
-        y_true_labels = [label_mapping.get(int(i), "Unknown") for i in y_true]
+        y_true_int = [int(i) for i in y_true]
+        y_true_int = [i if i in label_mapping else 0 for i in y_true_int]
+        y_true_labels = [label_mapping[i] for i in y_true_int]
 
     # ----------------------------
     # 9️⃣ Tampilkan prediksi di tabel interaktif (applymap aman)
