@@ -478,7 +478,30 @@ document.write(`
 </ul>
 <p>Dimana jika robot salah menilai permukaan, yang akan terjadi bisa bermacam-macam yaitu bisa mudah selip, gerakannya tidak stabil,navigasi meleset, bahkan komponen robot cepat aus.</p>
 <p>Dimana sekarang AIBO punya sensor canggih yang merekam getaran setiap kali langkahnya menyentuh lantai. Dimana satu langkah AIBO direkam sebagai 65 titik getaran, bukan satu angka. Setiap titik mewakili kekuatan getaran pada satu detik atau momen tertentu saat kaki menapak. Bisa dibayangkan, setiap langkah adalah “cerita langkah robot” dalam 65 catatan kecil. Dari pola ini, kita bisa mengajari robot untuk mengenali permukaan yang diinjak.</p>
-<p>Dimana dataset SonyAIBORobotSurface2 menyimpan semua rekaman ini. Jadi setiap sampel data = 1 langkah robot = 65 titik getaran.</p>
+<p>Sensor Internal AIBO</p>
+<p>Pada robot Sony AIBO tidak ada alat eksternal tambahan untuk mengukur getaran. Semua data diperoleh dari:</p>
+<ol class="arabic simple">
+<li><p>Accelerometer internal (IMU)</p>
+<ul class="simple">
+<li><p>Mengukur percepatan dan getaran kaki robot.</p></li>
+<li><p>Biasanya memiliki tiga sumbu: X, Y, Z.</p></li>
+<li><p>Bekerja dengan frekuensi sampling tinggi sehingga mampu menangkap perubahan getaran dengan presisi.</p></li>
+</ul>
+</li>
+<li><p>Sensor posisi sendi (Joint Angle Sensor)</p>
+<ul class="simple">
+<li><p>Memberikan informasi posisi kaki robot saat melangkah</p></li>
+<li><p>Berguna untuk mengetahui fase setiap langkah dan gerakan kaki robot secara detail.</p></li>
+</ul>
+</li>
+<li><p>Sensor tekanan kaki (Foot Pressure Sensor)</p>
+<ul class="simple">
+<li><p>Mendeteksi kontak kaki dengan permukaan lantai.</p></li>
+<li><p>Membantu menandai awal dan akhir langkah robot, sehingga rekaman data getaran lebih akurat.</p></li>
+</ul>
+</li>
+</ol>
+<p>Data getaran diperoleh dari sensor accelerometer internal yang terdapat pada robot Sony AIBO. Sensor ini merekam sinyal getaran kaki robot selama setiap langkah saat berjalan di permukaan lantai kasar dan licin. Setiap rekaman disampling menjadi 65 titik data yang merepresentasikan karakteristik permukaan lantai, dan setiap sampel diberi label sesuai jenis permukaan.</p>
 </section>
 <section id="masalah-yang-dihadapi">
 <h2>Masalah yang dihadapi<a class="headerlink" href="#masalah-yang-dihadapi" title="Permalink to this heading">#</a></h2>
@@ -950,7 +973,7 @@ Min  : -4.137978
 Max  : 4.2306925
 
 === STATISTIK GLOBAL TEST ===
-Mean : 1.8966336125783224e-11
+Mean : 1.8966337864287274e-11
 Std  : 0.9922778766509018
 Min  : -4.0211879
 Max  : 4.5016686
@@ -1623,7 +1646,7 @@ Sensor65  0.061  0.689 -2.790  2.878
 [65 rows x 4 columns]
 </pre></div>
 </div>
-<img alt="_images/2e0891158a32fa7620b8f926ad9920c5876ba39457e33224f22dfc3c1d913e34.png" src="_images/2e0891158a32fa7620b8f926ad9920c5876ba39457e33224f22dfc3c1d913e34.png" />
+<img alt="_images/ae3ebfc947589f49be327e69bf6c4ac3cef580aa27970644f78a04c476bd2dd3.png" src="_images/ae3ebfc947589f49be327e69bf6c4ac3cef580aa27970644f78a04c476bd2dd3.png" />
 </div>
 </div>
 </section>
@@ -2229,7 +2252,20 @@ Scaler disimpan sebagai &#39;scaler_standard.pkl&#39;.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/f456018c996f4827270bff29a43ebf12e8013521722a5284a4bdf657cc434705.png" src="_images/f456018c996f4827270bff29a43ebf12e8013521722a5284a4bdf657cc434705.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">32</span><span class="p">],</span> <span class="n">line</span> <span class="mi">3</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">3</span> <span class="kn">from</span><span class="w"> </span><span class="nn">imblearn.over_sampling</span><span class="w"> </span><span class="kn">import</span> <span class="n">SMOTE</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1"># Misal X_train_scaled dan y_train_raw sudah ada</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> 
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="c1"># Terapkan SMOTE</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="n">smote</span> <span class="o">=</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;imblearn&#39;
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -2405,12 +2441,8 @@ PCA disimpan sebagai &#39;pca_model.pkl&#39;
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KNN: F1-macro CV mean = 0.8723
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Random Forest: F1-macro CV mean = 0.8749
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AdaBoost: F1-macro CV mean = 0.8441
+Random Forest: F1-macro CV mean = 0.8749
+AdaBoost: F1-macro CV mean = 0.8441
 
 Model terbaik yang digunakan: KNN
 
@@ -2787,21 +2819,6 @@ Error rate kelas 1: 16.33%
 <span class="c1"># Footer</span>
 <span class="n">st</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="s2">&quot;---&quot;</span><span class="p">)</span>
 <span class="n">st</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="s2">&quot;&lt;p style=&#39;text-align:center;&#39;&gt;App menggunakan model &lt;b&gt;KNN&lt;/b&gt; dengan preprocessing &lt;b&gt;StandardScaler → PCA → KNN&lt;/b&gt;.&lt;/p&gt;&quot;</span><span class="p">,</span> <span class="n">unsafe_allow_html</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">38</span><span class="p">],</span> <span class="n">line</span> <span class="mi">5</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1"># ============================================================</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="c1"># STREAMLIT APP: KNN Robot Surface Classifier (Dinamis)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># ============================================================</span>
-<span class="ne">----&gt; </span><span class="mi">5</span> <span class="kn">import</span><span class="w"> </span><span class="nn">streamlit</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">st</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-
-<span class="ne">ModuleNotFoundError</span>: No module named &#39;streamlit&#39;
 </pre></div>
 </div>
 </div>
