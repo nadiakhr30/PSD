@@ -1,145 +1,102 @@
 Traceback (most recent call last):
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1305, in execute
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1305, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/codespace/.local/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/local/python/3.12.1/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
+  File "/home/codespace/.python/current/lib/python3.12/asyncio/base_events.py", line 684, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 705, in async_execute
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 705, in async_execute
     await self.async_execute_cell(
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 1058, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/usr/local/python/3.12.1/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
+  File "/workspaces/PSD/.venv/lib/python3.12/site-packages/nbclient/client.py", line 914, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
+import psycopg2
+import mysql.connector
 import pandas as pd
-from scipy import stats
-from pyod.models.knn import KNN
-from pyod.models.lof import LOF
-from pyod.models.abod import ABOD
 
-# ============================================================
-# 1. AMBIL FITUR NUMERIK
-# ============================================================
-X = df.select_dtypes(include="number")  # ambil hanya kolom numerik
-
-# ============================================================
-# 2. OUTLIER MENGGUNAKAN IQR (PER KOLOM)
-# ============================================================
-q_stats = X.quantile([0.25, 0.75])
-iqr = q_stats.loc[0.75] - q_stats.loc[0.25]
-
-mask_outlier_iqr = (
-    X.lt(q_stats.loc[0.25] - 1.5 * iqr) |
-    X.gt(q_stats.loc[0.75] + 1.5 * iqr)
+# === PostgreSQL Connection ===
+pg_conn = psycopg2.connect(
+    host="localhost",
+    database="postgres",
+    user="postgres",
+    password="123"
 )
+query_pg = 'SELECT id, "Class", "sepal.length", "sepal.width" FROM public."iriSepal";'
+postgres_data = pd.read_sql(query_pg, pg_conn)
+pg_conn.close()
 
-print("\n=== [IQR] Jumlah Outlier per Kolom ===")
-print(mask_outlier_iqr.sum().to_string())
+# === MySQL Connection ===
+mysql_conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="iris_petal"
+)
+query_mysql = "SELECT id, Class, petal length, petal width FROM petal;"
+mysql_data = pd.read_sql(query_mysql, mysql_conn)
+mysql_conn.close()
 
-persentase_iqr = (mask_outlier_iqr.sum() / len(df) * 100).round(2).astype(str) + " %"
-print("\n=== [IQR] Persentase Outlier per Kolom ===")
-print(persentase_iqr.to_string())
+# === Rename kolom di MySQL agar konsisten ===
+mysql_data = mysql_data.rename(columns={
+    'petal length': 'petal_length',
+    'petal width': 'petal_width'
+})
 
-outliers_iqr = mask_outlier_iqr.any(axis=1)
-print(f"\n>>> Total Outlier (IQR - baris): {outliers_iqr.sum()} sampel "
-      f"({(outliers_iqr.sum()/len(df)*100):.2f}%)")
+# === Gabungkan data berdasarkan kolom 'id' ===
+combined_data = pd.merge(postgres_data, mysql_data, on="id")
 
-# ============================================================
-# 3. OUTLIER MENGGUNAKAN Z-SCORE (PER KOLOM)
-# ============================================================
-z_scores = np.abs(stats.zscore(X))
-mask_outlier_z = (z_scores > 3)
+# === Output ke Power BI ===
+combined_dataimport psycopg2
+import mysql.connector
+import pandas as pd
 
-# Perbaikan: ubah array → Series pakai index kolom
-jumlah_outlier_z = pd.Series(mask_outlier_z.sum(axis=0), index=X.columns)
+# === PostgreSQL Connection ===
+pg_conn = psycopg2.connect(
+    host="localhost",
+    database="postgres",
+    user="postgres",
+    password="123"
+)
+query_pg = 'SELECT id, "Class", "sepal.length", "sepal.width" FROM public."iriSepal";'
+postgres_data = pd.read_sql(query_pg, pg_conn)
+pg_conn.close()
 
-print("\n=== [Z-Score] Jumlah Outlier per Kolom ===")
-print(jumlah_outlier_z.to_string())
+# === MySQL Connection ===
+mysql_conn = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="",
+    database="iris_petal"
+)
+query_mysql = "SELECT id, Class, petal length, petal width FROM petal;"
+mysql_data = pd.read_sql(query_mysql, mysql_conn)
+mysql_conn.close()
 
-persentase_z = (jumlah_outlier_z / len(df) * 100).round(2).astype(str) + " %"
+# === Rename kolom di MySQL agar konsisten ===
+mysql_data = mysql_data.rename(columns={
+    'petal length': 'petal_length',
+    'petal width': 'petal_width'
+})
 
-print("\n=== [Z-Score] Persentase Outlier per Kolom ===")
-print(persentase_z.to_string())
+# === Gabungkan data berdasarkan kolom 'id' ===
+combined_data = pd.merge(postgres_data, mysql_data, on="id")
 
-outliers_z = mask_outlier_z.any(axis=1)
-print(f"\n>>> Total Outlier (Z-Score - baris): {outliers_z.sum()} sampel "
-      f"({(outliers_z.sum()/len(df)*100):.2f}%)")
-
-# ============================================================
-# 4. OUTLIER MENGGUNAKAN KNN
-# ============================================================
-knn = KNN()
-knn.fit(X)
-mask_knn = knn.labels_ == 0
-df_knn_clean = df[mask_knn]
-df_knn_outliers = df[~mask_knn]
-
-print("\n=== [KNN] Deteksi Outlier ===")
-print(f"Jumlah outlier: {df_knn_outliers.shape[0]} sampel "
-      f"({(df_knn_outliers.shape[0]/len(df)*100):.2f}%)")
-display(df_knn_outliers.head())
-
-# ============================================================
-# 5. OUTLIER MENGGUNAKAN ABOD
-# ============================================================
-try:
-    abod = ABOD(method='fast')
-    abod.fit(X)
-    mask_abod = abod.labels_ == 0
-    df_abod_clean = df[mask_abod]
-    df_abod_outliers = df[~mask_abod]
-
-    print("\n=== [ABOD] Deteksi Outlier ===")
-    print(f"Jumlah outlier: {df_abod_outliers.shape[0]} sampel "
-          f"({(df_abod_outliers.shape[0]/len(df)*100):.2f}%)")
-    display(df_abod_outliers.head())
-except Exception as e:
-    print("ABOD error di Python 3.12:", e)
-    df_abod_clean = df.copy()
-    df_abod_outliers = pd.DataFrame()
-
-# ============================================================
-# 6. OUTLIER MENGGUNAKAN LOF
-# ============================================================
-lof = LOF()
-lof.fit(X)
-mask_lof = lof.labels_ == 0
-df_lof_clean = df[mask_lof]
-df_lof_outliers = df[~mask_lof]
-
-print("\n=== [LOF] Deteksi Outlier ===")
-print(f"Jumlah outlier: {df_lof_outliers.shape[0]} sampel "
-      f"({(df_lof_outliers.shape[0]/len(df)*100):.2f}%)")
-display(df_lof_outliers.head())
-
-# ============================================================
-# 7. RINGKASAN
-# ============================================================
-print("\n=== Ringkasan Ukuran Data ===")
-print("Ukuran data asli:           ", df.shape)
-print("Setelah hapus outlier (KNN):", df_knn_clean.shape)
-print("Setelah hapus outlier (ABOD):", df_abod_clean.shape)
-print("Setelah hapus outlier (LOF): ", df_lof_clean.shape)
-
+# === Output ke Power BI ===
+combined_data
 ------------------
 
 
-[31m---------------------------------------------------------------------------[39m
-[31mModuleNotFoundError[39m                       Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[16][39m[32m, line 4[39m
-[32m      2[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01mpandas[39;00m[38;5;250m [39m[38;5;28;01mas[39;00m[38;5;250m [39m[34;01mpd[39;00m
-[32m      3[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mscipy[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m stats
-[32m----> [39m[32m4[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpyod[39;00m[34;01m.[39;00m[34;01mmodels[39;00m[34;01m.[39;00m[34;01mknn[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m KNN
-[32m      5[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpyod[39;00m[34;01m.[39;00m[34;01mmodels[39;00m[34;01m.[39;00m[34;01mlof[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m LOF
-[32m      6[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mpyod[39;00m[34;01m.[39;00m[34;01mmodels[39;00m[34;01m.[39;00m[34;01mabod[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m ABOD
+  [36mCell[39m[36m [39m[32mIn[17][39m[32m, line 37[39m
+[31m    [39m[31mcombined_dataimport psycopg2[39m
+                        ^
+[31mSyntaxError[39m[31m:[39m invalid syntax
 
-[31mModuleNotFoundError[39m: No module named 'pyod'
 
