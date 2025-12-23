@@ -469,14 +469,9 @@ document.write(`
 <h1>Business Undestanding<a class="headerlink" href="#business-undestanding" title="Permalink to this heading">#</a></h1>
 <section id="latar-belakang">
 <h2>Latar Belakang<a class="headerlink" href="#latar-belakang" title="Permalink to this heading">#</a></h2>
-<p>Robot zaman sekarang sudah makin pintar, tapi tetap punya satu kelemahan dimana dia belum mengetahui jenis permukaan yang sedang diinjaknya.</p>
-<p>Setiap permukaan memberi pola getaran yang berbeda:</p>
-<ul class="simple">
-<li><p>karpet → empuk, menyerap getaran</p></li>
-<li><p>Keramik → licin, getaran cepat memantul</p></li>
-<li><p>Kayu → keras tapi tidak licin</p></li>
-</ul>
-<p>Dimana jika robot salah menilai permukaan, yang akan terjadi bisa bermacam-macam yaitu bisa mudah selip, gerakannya tidak stabil,navigasi meleset, bahkan komponen robot cepat aus.</p>
+<p>Robot zaman sekarang sudah semakin pintar, namun masih memiliki keterbatasan, yaitu belum mampu mengenali jenis permukaan yang sedang diinjaknya. Padahal, setiap permukaan menghasilkan pola getaran yang berbeda saat robot berjalan.</p>
+<p>Permukaan karpet bersifat lebih empuk sehingga menyerap getaran, sedangkan permukaan semen lebih keras sehingga menghasilkan getaran yang lebih tajam dan tidak stabil. Perbedaan ini dapat direkam melalui sensor akselerometer internal pada robot Sony AIBO.</p>
+<p>Jika robot salah menilai permukaan yang diinjak, maka dapat terjadi berbagai masalah, seperti mudah selip, gerakan menjadi tidak stabil, navigasi meleset, hingga komponen robot lebih cepat aus.</p>
 <p>Dimana sekarang AIBO punya sensor canggih yang merekam getaran setiap kali langkahnya menyentuh lantai. Dimana satu langkah AIBO direkam sebagai 65 titik getaran, bukan satu angka. Setiap titik mewakili kekuatan getaran pada satu detik atau momen tertentu saat kaki menapak. Bisa dibayangkan, setiap langkah adalah “cerita langkah robot” dalam 65 catatan kecil. Dari pola ini, kita bisa mengajari robot untuk mengenali permukaan yang diinjak.</p>
 <p>Sensor Internal AIBO</p>
 <p>Pada robot Sony AIBO tidak ada alat eksternal tambahan untuk mengukur getaran. Semua data diperoleh dari:</p>
@@ -2058,7 +2053,9 @@ Test set:
 Scaling selesai.
 
 === Statistik Setelah Scaling (Train set) ===
-         min       25%       50%          mean       75%       max
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         min       25%       50%          mean       75%       max
 0  -1.853152 -0.651651  0.043853  3.289550e-17  0.823984  2.052845
 1  -2.457879 -0.590440 -0.011126  6.167906e-18  0.744195  2.548827
 2  -2.372308 -0.558692  0.152301 -3.957739e-17  0.832986  1.547215
@@ -2511,9 +2508,7 @@ weighted avg       0.78      0.75      0.76       953
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model KNN siap dilatih.
 Model KNN berhasil dilatih.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prediksi data test selesai.
+Prediksi data test selesai.
 Model KNN disimpan sebagai &#39;KNN_final_model.pkl&#39;.
 </pre></div>
 </div>
