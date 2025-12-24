@@ -50,7 +50,7 @@ p {
 # 3️⃣ Title & Intro dengan icon FontAwesome
 # ----------------------------
 st.markdown("<h1><i class='fa fa-robot'></i> Robot Surface Classification (KNN)</h1>", unsafe_allow_html=True)
-st.markdown("<p>Deteksi permukaan robot: Licin vs Kasar</p>", unsafe_allow_html=True)
+st.markdown("<p>Deteksi permukaan robot: Karpet vs Semen</p>", unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;'><span style='background-color:#E0F7FA; padding:5px 10px; border-radius:5px;'>Pipeline: StandardScaler → PCA → KNN (cosine, weights='distance')</span></p>", unsafe_allow_html=True)
 
 st.markdown("---")
@@ -93,9 +93,12 @@ if uploaded_file:
     y_pred = knn_model.predict(X_pca)
 
     # ----------------------------
-    # Mapping label ke nama permukaan (1 → Licin, 2 → Kasar)
+    # Mapping label ke nama permukaan (1 → Karpet, 2 → Semen)
     # ----------------------------
-    label_mapping = {1: "Permukaan Licin", 2: "Permukaan Kasar"}
+    label_mapping = {
+        1: "Karpet (Permukaan empuk, menyerap getaran)",
+        2: "Semen (Permukaan keras, getaran cepat memantul)"
+    }
 
     y_pred_int = [int(i) if int(i) in label_mapping else 1 for i in y_pred]
     y_pred_labels = [label_mapping[i] for i in y_pred_int]
@@ -142,9 +145,9 @@ if uploaded_file:
         df_display["Label"] = y_true_subset
 
     def highlight_surface(val):
-        if val == "Permukaan Licin":
+        if "Karpet" in val:
             return 'background-color: lightgreen'
-        elif val == "Permukaan Kasar":
+        elif "Semen" in val:
             return 'background-color: lightcoral'
         else:
             return ''
