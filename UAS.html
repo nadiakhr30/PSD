@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN &#8212; Nadiatul Khoir</title>
+    <title>Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN &#8212; Nadiatul Khoir</title>
   
   
   
@@ -186,7 +186,7 @@ const thebe_selector_output = ".output, .cell_output"
 
 <li class="toctree-l1"><a class="reference internal" href="identifikasisuara.html">Sistem Identifikasi Suara Terbatas untuk Pengguna Tertentu (Minimal 2 Orang)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mengukur.html">Perhitungan Jarak Dynamic Time Warping antara 100 Audio Lama (Buka/Tutup) dan 1 Audio Baru</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN</a></li>
 
 
 
@@ -379,7 +379,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN</h1>
+    <h1>Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -389,7 +389,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#business-undestanding">Business Undestanding</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">Masalah yang dihadapi</a></li>
@@ -462,8 +462,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="deteksi-permukaan-licin-dan-kasar-pada-robot-sony-aibo-menggunakan-knn">
-<h1>Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN<a class="headerlink" href="#deteksi-permukaan-licin-dan-kasar-pada-robot-sony-aibo-menggunakan-knn" title="Permalink to this heading">#</a></h1>
+  <section id="deteksi-permukaan-karpet-dan-semen-pada-robot-sony-aibo-menggunakan-knn">
+<h1>Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN<a class="headerlink" href="#deteksi-permukaan-karpet-dan-semen-pada-robot-sony-aibo-menggunakan-knn" title="Permalink to this heading">#</a></h1>
 </section>
 <section id="business-undestanding">
 <h1>Business Undestanding<a class="headerlink" href="#business-undestanding" title="Permalink to this heading">#</a></h1>
@@ -2053,9 +2053,7 @@ Test set:
 Scaling selesai.
 
 === Statistik Setelah Scaling (Train set) ===
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         min       25%       50%          mean       75%       max
+         min       25%       50%          mean       75%       max
 0  -1.853152 -0.651651  0.043853  3.289550e-17  0.823984  2.052845
 1  -2.457879 -0.590440 -0.011126  6.167906e-18  0.744195  2.548827
 2  -2.372308 -0.558692  0.152301 -3.957739e-17  0.832986  1.547215
@@ -2156,8 +2154,9 @@ Contoh 5 baris pertama Train set setelah scaling:
    1.46180338e+00  1.90401119e+00  1.36469719e+00  1.28550877e+00
    1.46542079e+00  9.68571173e-01 -2.90638854e-01 -1.11102037e+00
   -1.73686408e+00]]
-
-Scaler disimpan sebagai &#39;scaler_standard.pkl&#39;.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Scaler disimpan sebagai &#39;scaler_standard.pkl&#39;.
 </pre></div>
 </div>
 </div>
@@ -2877,7 +2876,7 @@ Error rate kelas 1: 16.33%
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Deteksi Permukaan Licin dan Kasar pada Robot Sony AIBO Menggunakan KNN</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Deteksi Permukaan karpet dan Semen pada Robot Sony AIBO Menggunakan KNN</a></li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#business-undestanding">Business Undestanding</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latar-belakang">Latar Belakang</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#masalah-yang-dihadapi">Masalah yang dihadapi</a></li>
